@@ -4,16 +4,11 @@ import Image from "next/image";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { hash_id } = context.query
-  try {
-    const res = await axios.get(`/animes/${hash_id}`)
-    const anime = await res.data
-    return {
-      props: {anime}
-    }
-  } catch(error) {
-    return {
-      props: {error}
-    }
+
+  const res = await axios.get(`/animes/${hash_id}`)
+  const anime = await res.data
+  return {
+    props: {anime}
   }
 }
 

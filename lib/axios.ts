@@ -6,7 +6,7 @@ const axios = defaultAxios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 1000
+  timeout: 3000
 })
 
 export default axios

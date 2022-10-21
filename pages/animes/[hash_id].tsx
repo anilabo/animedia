@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 type InitialProps = { anime: Anime }
 
-const AnimesDetailPage: NextPage<InitialProps> = ({ anime }) => {
+const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
   return (
     <>
       <Image src={anime.thumbnail_url} width={500} height={400} />
@@ -40,4 +40,4 @@ const AnimesDetailPage: NextPage<InitialProps> = ({ anime }) => {
   );
 };
 
-export default AnimesDetailPage;
+export default AnimeDetailPage;

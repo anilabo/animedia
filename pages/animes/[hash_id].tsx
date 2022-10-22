@@ -4,6 +4,7 @@ import { useState } from "react";
 import AnimeThumbnailCard from "../../components/Anime/ThumbnailCard";
 import AnimeSubscribes from "../../components/Anime/Subscribes";
 import AnimeMyCommentsLink from "../../components/Anime/MyCommentsLink";
+import AnimeInformation from "../../components/Anime/Information";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { hash_id } = context.query;
@@ -40,6 +41,7 @@ const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
             <div className="border rounded">
               <AnimeSubscribes anime={anime} />
               <AnimeMyCommentsLink anime={anime} />
+              <AnimeInformation anime={anime} />
             </div>
           </div>
           <div className="w-2/3 bg-blue-500 h-10"></div>

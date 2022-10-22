@@ -3,6 +3,7 @@ import axios from "../../lib/axios";
 import { useState } from "react";
 import AnimeThumbnailCard from "../../components/Anime/ThumbnailCard";
 import AnimeSubscribes from "../../components/Anime/Subscribes";
+import AnimeMyCommentsLink from "../../components/Anime/MyCommentsLink";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { hash_id } = context.query;
@@ -36,11 +37,12 @@ const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
         <div className="flex gap-4">
           <div className="w-1/3 flex flex-col gap-4">
             <AnimeThumbnailCard anime={anime} />
-            <AnimeSubscribes anime={anime} />
+            <div className="border rounded">
+              <AnimeSubscribes anime={anime} />
+              <AnimeMyCommentsLink anime={anime} />
+            </div>
           </div>
-          <div className="w-2/3 bg-blue-500 h-10">
-            
-          </div>
+          <div className="w-2/3 bg-blue-500 h-10"></div>
         </div>
       </div>
     </>

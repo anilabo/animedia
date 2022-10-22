@@ -5,15 +5,23 @@ import AnimeThumbnailCard from "../../components/Anime/ThumbnailCard";
 import AnimeSubscribes from "../../components/Anime/Subscribes";
 import AnimeMyCommentsLink from "../../components/Anime/MyCommentsLink";
 import AnimeInformation from "../../components/Anime/Information";
+import { isNotFoundCode } from "../../hooks/useNotFound";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { hash_id } = context.query;
 
-  const res = await axios.get(`/animes/${hash_id}`);
-  const anime = await res.data;
-  return {
-    props: { anime },
-  };
+  try {
+    const res = await axios.get(`/animes/${hash_id}`);
+    const anime = await res.data;
+    return {
+      props: { anime },
+    };
+  } catch (error) {
+    return {
+      props: {},
+      notFound: isNotFoundCode(error),
+    };
+  }
 };
 
 type InitialProps = { anime: Anime };

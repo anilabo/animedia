@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import axios from "../../lib/axios";
 import { useState } from "react";
-import AnimeThumbnailCard from "../../components/Layouts/Anime/ThumbnailCard";
+import AnimeThumbnailCard from "../../components/Anime/ThumbnailCard";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { hash_id } = context.query;

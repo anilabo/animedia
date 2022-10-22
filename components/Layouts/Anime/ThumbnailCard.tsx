@@ -9,12 +9,16 @@ interface InitialProps {
 const AnimeThumbnailCard = ({ anime }: InitialProps) => {
   return (
     <div className=" border rounded p-6 flex flex-col gap-4">
-      <Image
-        src={anime.thumbnail_url}
-        width={500}
-        height={400}
-        className="rounded"
-      />
+      <Link href={anime.public_url}>
+        <a target="_blank">
+          <Image
+            src={anime.thumbnail_url}
+            width={500}
+            height={400}
+            className="rounded"
+          />
+        </a>
+      </Link>
       <div className="flex">
         <p className="text-gray-500">
           {anime.year}, {anime.season}

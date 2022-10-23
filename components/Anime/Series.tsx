@@ -13,7 +13,7 @@ const AnimeSeries = ({ anime }: InitialProps) => {
       </div>
       <div className="flex flex-col text-gray-600 text-sm p-1">
         {anime.series.map((relatedAnime) => (
-          <Link href={relatedAnime.public_uid}>
+          <Link href={relatedAnime.public_uid} key={relatedAnime.public_uid}>
             <a className="grid grid-cols-3 gap-2 hover:bg-green-100 p-1 rounded">
               <Image
                 src={relatedAnime.thumbnail_url}

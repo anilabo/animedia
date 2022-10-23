@@ -1,11 +1,11 @@
 import { GetServerSideProps, NextPage } from "next";
-import axios from "../../lib/axios";
+import axios from "lib/axios";
 import { useState } from "react";
-import AnimeThumbnailCard from "../../components/Anime/ThumbnailCard";
-import AnimeSubscribes from "../../components/Anime/Subscribes";
-import AnimeMyCommentsLink from "../../components/Anime/MyCommentsLink";
-import AnimeInformation from "../../components/Anime/Information";
-import { isNotFoundCode } from "../../hooks/useNotFound";
+import AnimeThumbnailCard from "components/Anime/ThumbnailCard";
+import AnimeSubscribes from "components/Anime/Subscribes";
+import AnimeMyCommentsLink from "components/Anime/MyCommentsLink";
+import AnimeInformation from "components/Anime/Information";
+import { isNotFoundCode } from "hooks/useNotFound";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { hash_id } = context.query;

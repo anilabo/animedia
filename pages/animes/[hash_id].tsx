@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from "next";
-import axios from "lib/axios";
+import axios from "axios";
 import { useState } from "react";
 import AnimeThumbnailCard from "components/Anime/ThumbnailCard";
 import AnimeSubscribes from "components/Anime/Subscribes";
@@ -12,7 +12,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { hash_id } = context.query;
 
   try {
-    const res = await axios.get(`/animes/${hash_id}`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_ANILABO_URL}/animes/${hash_id}`);
     const anime = await res.data;
     return {
       props: { anime },

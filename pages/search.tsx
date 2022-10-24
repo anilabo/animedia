@@ -50,7 +50,7 @@ const SearchPage: NextPage = () => {
               )}
             </>
           ) : (
-            <p>検索キーワードが必要ですね。</p>
+            <p className="text-gray-600 text-sm">Please enter the keyword.</p>
           )}
         </div>
       </div>

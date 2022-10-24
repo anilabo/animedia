@@ -1,14 +1,20 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 
 const Navbar = () => {
-  const [keyword, setKeyword] = useState<string>("");
   const router = useRouter();
+  const [keyword, setKeyword] = useState<string>("");
   const searchAnimes = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push(`/search?keyword=${keyword}`);
   };
+
+  useEffect(()=> {
+    if (router.isReady) {
+      setKeyword(router.query.keyword as string)
+    }
+  }, [router]);
 
   return (
     <>
@@ -21,6 +27,7 @@ const Navbar = () => {
             <input
               className="border border-gray-600"
               type="text"
+              defaultValue={router.query.keyword}
               onChange={(e) => setKeyword(e.target.value)}
             />
           </form>

@@ -7,5 +7,5 @@ const seasons = [
 
 // convert season name (as string) to season number (as integer)
 export const seasonNum = (seasonName: string) => {
-  return seasons.filter((season) => season.name == seasonName)[0].number;
+  return seasons.filter((season) => season.name == seasonName)[0]?.number;
 };

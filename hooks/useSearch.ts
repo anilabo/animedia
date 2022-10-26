@@ -12,7 +12,7 @@ const params = [
 export const animeQuery = params.join("_or_") + "_cont";
 
 export const isPresent = (word: string) => {
-  return word && word != "blank";
+  return word && word != "blank" && word != "undefined";
 };
 
 export const appendAnimeQuery = (
@@ -26,11 +26,11 @@ export const appendAnimeQuery = (
   if (keyword) {
     params.append(`q[${animeQuery}]`, `${keyword}`);
   }
-  if (isPresent(`${year}`)) {
-    params.append("q[year_eq]", `${year}`);
+  if (isPresent(year)) {
+    params.append("q[year_eq]", year);
   }
-  if (isPresent(`${season}`)) {
-    params.append("q[season_eq]", `${seasonNum(`${season}`)}`);
+  if (isPresent(season)) {
+    params.append("q[season_eq]", `${seasonNum(season)}`);
   }
 
   return url;

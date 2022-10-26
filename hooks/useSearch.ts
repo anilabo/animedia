@@ -8,3 +8,7 @@ const params = [
 ];
 
 export const animeQuery = params.join("_or_") + "_cont";
+
+export const isPresent = (word: string) => {
+  return word && word != "blank";
+};

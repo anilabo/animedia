@@ -1,5 +1,5 @@
 import axios from "axios";
-import { animeQuery } from "hooks/useSearch";
+import { animeQuery, isPresent } from "hooks/useSearch";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -19,13 +19,17 @@ const SearchPage: NextPage = () => {
     const url = new URL(`${process.env.NEXT_PUBLIC_ANILABO_URL}/animes`);
     const params = url.searchParams;
 
-    if (keyword) params.append(`q[${animeQuery}]`, `${keyword}`);
-    if (year && year != "blank") params.append("q[year_eq]", `${year}`);
-    if (season && season != "blank") {
+    if (keyword) {
+      params.append(`q[${animeQuery}]`, `${keyword}`);
+    }
+    if (isPresent(`${year}`)) {
+      params.append("q[year_eq]", `${year}`);
+    }
+    if (isPresent(`${season}`)) {
       params.append("q[season_eq]", `${seasonNum(`${season}`)}`);
     }
 
-    if ((year && year != "blank" && season && season != "blank") || keyword) {
+    if ((isPresent(`${year}`) && isPresent(`${season}`)) || keyword) {
       axios.get(url.href).then((res) => {
         setResultAnimes(res.data);
       });

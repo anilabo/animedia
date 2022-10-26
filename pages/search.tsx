@@ -1,5 +1,5 @@
 import axios from "axios";
-import { animeQuery, isPresent } from "hooks/useSearch";
+import { appendAnimeQuery, isPresent } from "hooks/useSearch";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -7,7 +7,6 @@ import ProgressBar from "components/Layouts/ProgressBar";
 import AnimeFoundList from "components/Anime/FoundList";
 import AnimeNotFound from "components/Anime/NotFound";
 import AnimeSearchForm from "components/Anime/SearchForm";
-import { seasonNum } from "hooks/useSeason";
 
 const SearchPage: NextPage = () => {
   const router = useRouter();
@@ -16,18 +15,7 @@ const SearchPage: NextPage = () => {
   const [resultAnimes, setResultAnimes] = useState<Anime[]>([]);
 
   useEffect(() => {
-    const url = new URL(`${process.env.NEXT_PUBLIC_ANILABO_URL}/animes`);
-    const params = url.searchParams;
-
-    if (keyword) {
-      params.append(`q[${animeQuery}]`, `${keyword}`);
-    }
-    if (isPresent(`${year}`)) {
-      params.append("q[year_eq]", `${year}`);
-    }
-    if (isPresent(`${season}`)) {
-      params.append("q[season_eq]", `${seasonNum(`${season}`)}`);
-    }
+    const url = appendAnimeQuery(`${year}`, `${season}`, `${keyword}`);
 
     if ((isPresent(`${year}`) && isPresent(`${season}`)) || keyword) {
       axios.get(url.href).then((res) => {

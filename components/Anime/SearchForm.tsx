@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 
 const AnimeSearchForm = () => {
   const router = useRouter();
@@ -10,6 +10,17 @@ const AnimeSearchForm = () => {
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [selectedSeason, setSelectedSeason] = useState<string>("");
 
+  const [inputKeyword, setInputKeyword] = useState<string>("");
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const url = new URL(location.href);
+    const params = url.searchParams;
+    params.delete("keyword");
+    params.append("keyword", inputKeyword);
+    router.push(url.href);
+  };
+
   useEffect(() => {
     if (year && season) {
       setSelectedYear(year as string);
@@ -18,16 +29,27 @@ const AnimeSearchForm = () => {
   }, [year, season]);
 
   useEffect(() => {
-    if (selectedYear && selectedSeason) {
-      const query = [`year=${selectedYear}`, `season=${selectedSeason}`].join(
-        "&"
-      );
-      router.push(`/search?${query}`);
+    if (selectedYear) {
+      const url = new URL(location.href)
+      const params = url.searchParams
+      params.delete("year")
+      params.append("year", selectedYear)
+      router.push(url.href)
     }
-  }, [selectedYear, selectedSeason]);
+  }, [selectedYear]);
+
+  useEffect(() => {
+    if (selectedSeason) {
+      const url = new URL(location.href)
+      const params = url.searchParams
+      params.delete("season")
+      params.append("season", selectedSeason)
+      router.push(url.href)
+    }
+  }, [selectedSeason])
 
   return (
-    <form className="flex gap-2">
+    <form onSubmit={(e) => handleSubmit(e)} className="flex gap-2">
       <select
         name="year"
         id="year"
@@ -35,6 +57,7 @@ const AnimeSearchForm = () => {
         onChange={(e) => setSelectedYear(e.target.value)}
         value={year}
       >
+        <option value="blank">YEAR</option>
         {yearsArray.map((i, index) => (
           <option key={index} value={i}>
             {i}
@@ -48,6 +71,7 @@ const AnimeSearchForm = () => {
         onChange={(e) => setSelectedSeason(e.target.value)}
         value={season}
       >
+        <option value="blank">SEASON</option>
         {seasonsArray.map((seasonName, index) => (
           <option key={index} value={seasonName}>
             {seasonName}
@@ -59,6 +83,7 @@ const AnimeSearchForm = () => {
         className="border border-gray-400 rounded px-2 py-1 text-gray-600"
         placeholder="keyword"
         defaultValue={keyword}
+        onChange={(e) => setInputKeyword(e.target.value)}
       />
     </form>
   );

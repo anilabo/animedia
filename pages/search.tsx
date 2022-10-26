@@ -16,32 +16,24 @@ const SearchPage: NextPage = () => {
   const [resultAnimes, setResultAnimes] = useState<Anime[]>([]);
 
   useEffect(() => {
-    if (keyword) {
-      axios
-        .get(
-          `${process.env.NEXT_PUBLIC_ANILABO_URL}/animes?q[${animeQuery}]=${keyword}`
-        )
-        .then((res) => {
-          setResultAnimes(res.data);
-          setIsSearching(false);
-        });
-    }
-  }, [keyword]);
+    const url = new URL(`${process.env.NEXT_PUBLIC_ANILABO_URL}/animes`);
+    const params = url.searchParams;
 
-  useEffect(() => {
-    if (year && season) {
-      axios
-        .get(
-          `${
-            process.env.NEXT_PUBLIC_ANILABO_URL
-          }/animes?q[year_eq]=${year}&q[season_eq]=${seasonNum(`${season}`)}`
-        )
-        .then((res) => {
-          setResultAnimes(res.data);
-          setIsSearching(false);
-        });
+    if (keyword) params.append(`q[${animeQuery}]`, `${keyword}`);
+    if (year && year != "blank") params.append("q[year_eq]", `${year}`);
+    if (season && season != "blank") {
+      params.append("q[season_eq]", `${seasonNum(`${season}`)}`);
     }
-  }, [year, season]);
+
+    if ((year && year != "blank" && season && season != "blank") || keyword) {
+      axios.get(url.href).then((res) => {
+        setResultAnimes(res.data);
+      });
+    } else {
+      setResultAnimes([]);
+    }
+    setIsSearching(false);
+  }, [year, season, keyword]);
 
   return (
     <>

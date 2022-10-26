@@ -23,7 +23,7 @@ export const appendAnimeQuery = (
   const url = new URL(`${process.env.NEXT_PUBLIC_ANILABO_URL}/animes`);
   const params = url.searchParams;
 
-  if (keyword) {
+  if (isPresent(keyword)) {
     params.append(`q[${animeQuery}]`, `${keyword}`);
   }
   if (isPresent(year)) {

@@ -30,23 +30,27 @@ const AnimeSearchForm = () => {
 
   useEffect(() => {
     if (selectedYear) {
-      const url = new URL(location.href)
-      const params = url.searchParams
-      params.delete("year")
-      params.append("year", selectedYear)
-      router.push(url.href)
+      const url = new URL(location.href);
+      const params = url.searchParams;
+      params.delete("year");
+      params.append("year", selectedYear);
+      router.push(url.href);
     }
   }, [selectedYear]);
 
   useEffect(() => {
     if (selectedSeason) {
-      const url = new URL(location.href)
-      const params = url.searchParams
-      params.delete("season")
-      params.append("season", selectedSeason)
-      router.push(url.href)
+      const url = new URL(location.href);
+      const params = url.searchParams;
+      params.delete("season");
+      params.append("season", selectedSeason);
+      router.push(url.href);
     }
-  }, [selectedSeason])
+  }, [selectedSeason]);
+
+  useEffect(() => {
+    setInputKeyword(`${keyword}`);
+  }, [keyword]);
 
   return (
     <form onSubmit={(e) => handleSubmit(e)} className="flex gap-2">

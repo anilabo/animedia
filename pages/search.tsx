@@ -17,7 +17,7 @@ const SearchPage: NextPage = () => {
   useEffect(() => {
     const url = appendAnimeQuery(`${year}`, `${season}`, `${keyword}`);
 
-    if ((isPresent(`${year}`) && isPresent(`${season}`)) || keyword) {
+    if ((isPresent(`${year}`) && isPresent(`${season}`)) || isPresent(`${keyword}`)) {
       axios.get(url.href).then((res) => {
         setResultAnimes(res.data);
       });

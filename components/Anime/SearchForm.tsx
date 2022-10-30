@@ -84,7 +84,7 @@ const AnimeSearchForm = () => {
       </select>
       <input
         type="text"
-        className="border border-gray-400 rounded px-2 py-1 text-gray-600"
+        className="border border-gray-400 rounded px-2 py-1 text-gray-600 w-full"
         placeholder="keyword"
         defaultValue={keyword}
         onChange={(e) => setInputKeyword(e.target.value)}

@@ -12,7 +12,7 @@ const AnimeSubscribes = ({ anime }: InitialProps) => {
       <div className="bg-gray-100 p-2">
         <p className="font-semibold text-sm text-gray-600">Subscribe</p>
       </div>
-      <div className="p-4 flex flex-col gap-2">
+      <div className="p-4 flex md:flex-col gap-2">
         <button className="border w-full px-2 py-1 hover:bg-green-600 hover:text-white text-sm text-gray-600 flex gap-2">
           <div className="text-xl">
             <BiListCheck />

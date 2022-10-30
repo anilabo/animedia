@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import LoginButton from "./LoginButton";
 
 const Navbar = () => {
   const router = useRouter()
@@ -7,6 +8,7 @@ const Navbar = () => {
   return (
     <>
       <div className="max-w-6xl mx-auto m-2 mb-4">
+        <LoginButton />
         <header className="flex">
           <Link href="/">
             <a className="text-xl font-bold px-4 py-2">Animedia</a>

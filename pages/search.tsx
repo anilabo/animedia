@@ -17,7 +17,10 @@ const SearchPage: NextPage = () => {
   useEffect(() => {
     const url = appendAnimeQuery(`${year}`, `${season}`, `${keyword}`);
 
-    if ((isPresent(`${year}`) && isPresent(`${season}`)) || isPresent(`${keyword}`)) {
+    if (
+      (isPresent(`${year}`) && isPresent(`${season}`)) ||
+      isPresent(`${keyword}`)
+    ) {
       axios.get(url.href).then((res) => {
         setResultAnimes(res.data);
         setIsSearching(false);
@@ -29,9 +32,9 @@ const SearchPage: NextPage = () => {
 
   return (
     <>
-      <div className="max-w-6xl mx-auto flex gap-4 mb-10">
-        <div className="w-1/3 h-10 bg-red-500"></div>
-        <div className="w-2/3 flex flex-col gap-4">
+      <div className="max-w-6xl mx-auto md:flex gap-4 mb-10">
+        <div className="md:w-1/3 h-10 bg-red-500"></div>
+        <div className="md:w-2/3 flex flex-col gap-4 m-2">
           <AnimeSearchForm />
           {keyword || (year && season) ? (
             <>
@@ -40,10 +43,7 @@ const SearchPage: NextPage = () => {
               ) : (
                 <>
                   {resultAnimes[0] ? (
-                    <AnimeFoundList
-                      keyword={`${keyword}`}
-                      animes={resultAnimes}
-                    />
+                    <AnimeFoundList animes={resultAnimes} />
                   ) : (
                     <AnimeNotFound keyword={`${keyword}`} />
                   )}

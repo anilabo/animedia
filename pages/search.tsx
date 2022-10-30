@@ -20,11 +20,11 @@ const SearchPage: NextPage = () => {
     if ((isPresent(`${year}`) && isPresent(`${season}`)) || isPresent(`${keyword}`)) {
       axios.get(url.href).then((res) => {
         setResultAnimes(res.data);
+        setIsSearching(false);
       });
     } else {
       setResultAnimes([]);
     }
-    setIsSearching(false);
   }, [year, season, keyword]);
 
   return (

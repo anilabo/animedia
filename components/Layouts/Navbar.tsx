@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+  const router = useRouter()
+  
   return (
     <>
       <div className="max-w-6xl mx-auto m-2 mb-4">
@@ -27,9 +30,19 @@ const Navbar = () => {
             <li className="px-2 py-1 border-r border-b-4 border-b-white hover:border-b-green-500">
               Connect
             </li>
-            <li className="px-2 py-1 border-r border-b-4 border-b-white hover:border-b-green-500">
-              Search
-            </li>
+            <Link href="/search">
+              <a>
+                <li
+                  className={`px-2 py-1 border-r border-b-4 hover:border-b-green-500 ${
+                    router.pathname.includes("/search")
+                      ? "border-b-green-500"
+                      : "border-b-white"
+                  }`}
+                >
+                  Search
+                </li>
+              </a>
+            </Link>
           </ul>
         </nav>
       </div>

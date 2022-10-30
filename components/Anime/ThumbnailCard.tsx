@@ -8,7 +8,7 @@ interface InitialProps {
 
 const AnimeThumbnailCard = ({ anime }: InitialProps) => {
   return (
-    <div className=" border rounded p-6 flex flex-col gap-4">
+    <div className="p-6 flex flex-col gap-4">
       <Link href={anime.public_url}>
         <a target="_blank">
           <Image
@@ -23,7 +23,7 @@ const AnimeThumbnailCard = ({ anime }: InitialProps) => {
         <p className="text-gray-500">
           {anime.year}, {anime.season}
         </p>
-        <Link href={`/?q[year_eq]=${anime.year}&q[season_eq]=${anime.season}`}>
+        <Link href={`/search/?year=${anime.year}&season=${anime.season}`}>
           <a className="ml-auto text-green-600 hover:underline">
             search with this season
           </a>

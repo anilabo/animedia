@@ -12,7 +12,7 @@ const FirebaseCredentials = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
-// if a Firebase instance doesn't exist, create one
+
 if (!Firebase.apps.length) {
   Firebase.initializeApp(FirebaseCredentials);
 }

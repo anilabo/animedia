@@ -11,7 +11,6 @@ const SignUp: NextPage = () => {
     auth.onAuthStateChanged((user) => {
       console.log("ユーザーログインしてる？");
       console.log(!!user);
-      console.log(user?.multiFactor.user.displayName)
     });
   }, []);
 

@@ -1,4 +1,4 @@
-import { auth, Firebase } from "lib/Firebase";
+import { auth, firebase } from "lib/Firebase";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -7,11 +7,11 @@ import { Avatar, Dropdown } from "flowbite-react";
 
 const Navbar = () => {
   const router = useRouter();
-  const [user, setUser] = useState<Firebase.User | null>(null);
+  const [user, setUser] = useState<firebase.User | null>(null);
   const signUpWithGoogle = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      const provider = new Firebase.auth.GoogleAuthProvider();
+      const provider = new firebase.auth.GoogleAuthProvider();
       await auth.signInWithPopup(provider).catch(alert);
       router.push("/");
     } catch (err) {

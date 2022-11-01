@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import type { NextPage } from "next";
-import { Firebase, auth } from "../lib/Firebase";
+import { firebase, auth } from "lib/Firebase";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -17,7 +17,7 @@ const SignUp: NextPage = () => {
   const signUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      const provider = new Firebase.auth.GoogleAuthProvider();
+      const provider = new firebase.auth.GoogleAuthProvider();
       await auth.signInWithPopup(provider).catch(alert);
       router.push("/");
     } catch (err) {

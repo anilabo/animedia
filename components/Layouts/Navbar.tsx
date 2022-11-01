@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import NavbarItems from "./NavbarItems";
 import { Avatar, Dropdown } from "flowbite-react";
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
   const router = useRouter();
@@ -14,9 +15,18 @@ const Navbar = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
       await auth.signInWithPopup(provider).catch(alert);
       router.push("/");
-    } catch (err) {
-      alert(err);
+    } catch (error) {
+      alert(error);
     }
+  };
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        router.push("/");
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   useEffect(() => {
@@ -56,7 +66,9 @@ const Navbar = () => {
                   <Dropdown.Item>Settings</Dropdown.Item>
                   <Dropdown.Item>Earnings</Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item>Sign out</Dropdown.Item>
+                  <Dropdown.Item onClick={() => logout()}>
+                    Sign out
+                  </Dropdown.Item>
                 </Dropdown>
               </div>
             ) : (

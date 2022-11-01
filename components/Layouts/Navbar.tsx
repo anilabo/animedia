@@ -7,6 +7,7 @@ import Image from "next/image";
 const Navbar = () => {
   const router = useRouter();
   const [userImage, setUserImage] = useState("");
+  const [isVisibleDropdown, setIsVisibleDropdown] = useState(false);
   const signUpWithGoogle = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -36,8 +37,28 @@ const Navbar = () => {
           </Link>
           <div className="flex ml-auto">
             {isSignedIn ? (
-              <div className="h-10 w-10 object-cover my-auto">
-                <Image src={userImage} width={100} height={100} className="rounded-full" />
+              <div className="relative">
+                <div
+                  className="h-10 w-10 object-cover my-auto cursor-pointer"
+                  onClick={() => setIsVisibleDropdown(!isVisibleDropdown)}
+                >
+                  <Image
+                    src={userImage}
+                    width={100}
+                    height={100}
+                    className="rounded-full"
+                  />
+                </div>
+                {isVisibleDropdown && (
+                  <div className="absolute button-0 right-0 text-gray-600 bg-white mt-1">
+                    <p className="border-t border-x rounded-t px-4 py-2 hover:bg-green-200">
+                      Profile
+                    </p>
+                    <p className="border-b border-x rounded-b px-4 py-2 hover:bg-green-200">
+                      Logout
+                    </p>
+                  </div>
+                )}
               </div>
             ) : (
               <button

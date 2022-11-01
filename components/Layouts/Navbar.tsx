@@ -2,13 +2,12 @@ import { auth, Firebase } from "lib/Firebase";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import NavbarItems from "./NavbarItems";
+import { Avatar, Dropdown } from "flowbite-react";
 
 const Navbar = () => {
   const router = useRouter();
   const [userImage, setUserImage] = useState("");
-  const [isVisibleDropdown, setIsVisibleDropdown] = useState(false);
   const signUpWithGoogle = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -38,28 +37,30 @@ const Navbar = () => {
           </Link>
           <div className="flex ml-auto">
             {isSignedIn ? (
-              <div className="relative">
-                <div
-                  className="h-10 w-10 object-cover my-auto cursor-pointer"
-                  onClick={() => setIsVisibleDropdown(!isVisibleDropdown)}
+              <div className="my-auto">
+                <Dropdown
+                  arrowIcon={false}
+                  inline={true}
+                  label={
+                    <Avatar
+                      alt="User settings"
+                      img={userImage}
+                      rounded={true}
+                    />
+                  }
                 >
-                  <Image
-                    src={userImage}
-                    width={100}
-                    height={100}
-                    className="rounded-full"
-                  />
-                </div>
-                {isVisibleDropdown && (
-                  <div className="absolute button-0 right-0 text-gray-600 bg-white mt-1">
-                    <p className="border-t border-x rounded-t px-4 py-2 hover:bg-green-200">
-                      Profile
-                    </p>
-                    <p className="border-b border-x rounded-b px-4 py-2 hover:bg-green-200">
-                      Logout
-                    </p>
-                  </div>
-                )}
+                  <Dropdown.Header>
+                    <span className="block text-sm">Bonnie Green</span>
+                    <span className="block truncate text-sm font-medium">
+                      name@flowbite.com
+                    </span>
+                  </Dropdown.Header>
+                  <Dropdown.Item>Dashboard</Dropdown.Item>
+                  <Dropdown.Item>Settings</Dropdown.Item>
+                  <Dropdown.Item>Earnings</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>Sign out</Dropdown.Item>
+                </Dropdown>
               </div>
             ) : (
               <button

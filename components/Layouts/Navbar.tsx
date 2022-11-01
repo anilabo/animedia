@@ -7,7 +7,7 @@ import { Avatar, Dropdown } from "flowbite-react";
 
 const Navbar = () => {
   const router = useRouter();
-  const [userImage, setUserImage] = useState("");
+  const [user, setUser] = useState<Firebase.User | null>(null);
   const signUpWithGoogle = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -19,12 +19,9 @@ const Navbar = () => {
     }
   };
 
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      setIsSignedIn(!!user);
-      setUserImage(user?.photoURL as string);
+      setUser(user);
     });
   }, []);
 
@@ -36,7 +33,7 @@ const Navbar = () => {
             <a className="text-xl font-bold px-4 py-2 my-auto">Animedia</a>
           </Link>
           <div className="flex ml-auto">
-            {isSignedIn ? (
+            {!!user ? (
               <div className="my-auto">
                 <Dropdown
                   arrowIcon={false}
@@ -44,15 +41,15 @@ const Navbar = () => {
                   label={
                     <Avatar
                       alt="User settings"
-                      img={userImage}
+                      img={`${user.photoURL}`}
                       rounded={true}
                     />
                   }
                 >
                   <Dropdown.Header>
-                    <span className="block text-sm">Bonnie Green</span>
+                    <span className="block text-sm">{user.displayName}</span>
                     <span className="block truncate text-sm font-medium">
-                      name@flowbite.com
+                      {user.email}
                     </span>
                   </Dropdown.Header>
                   <Dropdown.Item>Dashboard</Dropdown.Item>

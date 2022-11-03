@@ -73,7 +73,7 @@ const Navbar = () => {
               </div>
             ) : (
               <button
-                className="bg-green-600 hover:bg-green-700 rounded text-white px-4 h-8 my-auto"
+                className="bg-green-500 hover:bg-green-700 rounded text-white px-4 h-8 my-auto"
                 onClick={signUpWithGoogle}
               >
                 Login

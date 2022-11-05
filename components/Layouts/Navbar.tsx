@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import NavbarItems from "./NavbarItems";
 import { Avatar, Dropdown } from "flowbite-react";
 import { signOut } from "firebase/auth";
+import axios from "axios";
 
 const Navbar = () => {
   const router = useRouter();
@@ -13,7 +14,19 @@ const Navbar = () => {
     e.preventDefault();
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
-      await auth.signInWithPopup(provider).catch(alert);
+      await auth
+        .signInWithPopup(provider)
+        .then(async (res) => {
+          if (res.user) {
+            const token = await res.user.getIdToken();
+            const params = {
+              token,
+              user: { email: res.user.email },
+            };
+            axios.post(`${process.env.NEXT_PUBLIC_ANILABO_URL}/users`, params);
+          }
+        })
+        .catch(alert);
       router.push("/");
     } catch (error) {
       alert(error);

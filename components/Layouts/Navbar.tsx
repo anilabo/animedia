@@ -23,11 +23,12 @@ const Navbar = () => {
               token,
               user: { email: res.user.email },
             };
-            axios.post(`${process.env.NEXT_PUBLIC_ANILABO_URL}/users`, params);
+            axios.post(`${process.env.NEXT_PUBLIC_ANILABO_URL}/users`, params).then(() => {
+              router.push("/");
+            });
           }
         })
         .catch(alert);
-      router.push("/");
     } catch (error) {
       alert(error);
     }

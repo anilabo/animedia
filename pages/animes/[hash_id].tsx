@@ -7,6 +7,7 @@ import AnimeMyCommentsLink from "components/Anime/MyCommentsLink";
 import AnimeInformation from "components/Anime/Information";
 import { isNotFoundCode } from "hooks/useNotFound";
 import AnimeSeries from "components/Anime/Series";
+import AnimeWatchedComments from "components/Anime/WatchedComments";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { hash_id } = context.query;
@@ -60,7 +61,9 @@ const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
               </div>
             )}
           </div>
-          <div className="md:w-2/3 bg-blue-500 h-10"></div>
+          <div className="md:w-2/3">
+            <AnimeWatchedComments anime={anime} />
+          </div>
         </div>
       </div>
     </>

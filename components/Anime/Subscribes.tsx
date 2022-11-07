@@ -4,7 +4,7 @@ import { FaSearchPlus } from "react-icons/fa";
 import axios from "axios";
 import { firebase } from "lib/Firebase";
 import Modal from "react-modal";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { customStyles } from "lib/modalStyle";
 
 interface InitialProps {
@@ -16,7 +16,11 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [opinion, setOpinion] = useState<string>("");
   const [finishedAt, setFinishedAt] = useState("");
-  const createWatchLog = async (progress: string) => {
+  const createWatchLog = async (
+    progress: string,
+    e?: FormEvent<HTMLFormElement>
+  ) => {
+    e?.preventDefault();
     const token = await firebase.auth().currentUser?.getIdToken();
     const params = {
       token,
@@ -56,7 +60,7 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
           ariaHideApp={false}
           onRequestClose={() => setIsModalOpen(false)}
         >
-          <form onSubmit={() => createWatchLog("watched")}>
+          <form onSubmit={(e) => createWatchLog("watched", e)}>
             <div className="grid grid-cols-4 gap-4">
               <p className="text-green-500 font-bold">{anime.title}</p>
               <p className="col-start-1 text-sm text-gray-600">watched day</p>

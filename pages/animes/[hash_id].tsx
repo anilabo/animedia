@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AnimeThumbnailCard from "components/Anime/ThumbnailCard";
 import AnimeSubscribes from "components/Anime/Subscribes";
 import AnimeMyCommentsLink from "components/Anime/MyCommentsLink";
@@ -34,7 +34,11 @@ const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
       ? `（${anime.companies.map((company) => company.name).join(", ")}）`
       : ""
   );
-  const [watchedUsers, setWatchedUsers] = useState<User[]>(anime.watched_users)
+  const [watchedUsers, setWatchedUsers] = useState<User[]>([])
+
+  useEffect(() => {
+    setWatchedUsers(anime.watched_users)
+  }, [anime])
 
   return (
     <>

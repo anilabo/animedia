@@ -34,6 +34,7 @@ const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
       ? `（${anime.companies.map((company) => company.name).join(", ")}）`
       : ""
   );
+  const [watchedUsers, setWatchedUsers] = useState<User[]>(anime.watched_users)
 
   return (
     <>
@@ -51,7 +52,7 @@ const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
               <AnimeThumbnailCard anime={anime} />
             </div>
             <div className="border rounded">
-              <AnimeSubscribes anime={anime} />
+              <AnimeSubscribes anime={anime} setWatchedUsers={setWatchedUsers} />
               <AnimeMyCommentsLink anime={anime} />
               <AnimeInformation anime={anime} />
             </div>
@@ -62,7 +63,7 @@ const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
             )}
           </div>
           <div className="md:w-2/3">
-            <AnimeWatchedComments anime={anime} />
+            <AnimeWatchedComments anime={anime} watchedUsers={watchedUsers} />
           </div>
         </div>
       </div>

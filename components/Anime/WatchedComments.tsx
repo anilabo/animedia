@@ -3,9 +3,10 @@ import Link from "next/link";
 
 interface InitialProps {
   anime: Anime;
+  watchedUsers: User[]
 }
 
-const AnimeWatchedComments = ({ anime }: InitialProps) => {
+const AnimeWatchedComments = ({ anime, watchedUsers }: InitialProps) => {
   return (
     <>
       <div className="flex flex-col border rounded">
@@ -30,7 +31,7 @@ const AnimeWatchedComments = ({ anime }: InitialProps) => {
           </Link>
           <div className="col-span-3 bg-gray-100 border-gray-300 border-b"></div>
         </div>
-        {anime.watched_users.map((user) => (
+        {watchedUsers.map((user) => (
           <div className="flex gap-4 p-4" key={user.uid}>
             <Link href={`/users/${user.uid}`}>
               <a className="w-12 h-12">

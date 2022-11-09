@@ -3,7 +3,7 @@ import Link from "next/link";
 
 interface InitialProps {
   anime: Anime;
-  watchedUsers: User[]
+  watchedUsers: User[];
 }
 
 const AnimeWatchedComments = ({ anime, watchedUsers }: InitialProps) => {
@@ -31,28 +31,34 @@ const AnimeWatchedComments = ({ anime, watchedUsers }: InitialProps) => {
           </Link>
           <div className="col-span-3 bg-gray-100 border-gray-300 border-b"></div>
         </div>
-        {watchedUsers.map((user) => (
-          <div className="flex gap-4 p-4" key={user.uid}>
-            <Link href={`/users/${user.uid}`}>
-              <a className="w-12 h-12">
-                <Image
-                  width={500}
-                  height={500}
-                  src={user.photo_url}
-                  className="rounded"
-                />
-              </a>
-            </Link>
-            <div className="flex flex-col text-sm">
-              <Link href={`/users/${user.uid}`}>
-                <a className="text-green-500 font-semibold hover:underline w-fit">
-                  {user.display_name}
-                </a>
-              </Link>
-              <p className="text-gray-600">{user.opinion}</p>
-            </div>
-          </div>
-        ))}
+        {watchedUsers[0] ? (
+          <>
+            {watchedUsers.map((user) => (
+              <div className="flex gap-4 p-4" key={user.uid}>
+                <Link href={`/users/${user.uid}`}>
+                  <a className="w-12 h-12">
+                    <Image
+                      width={500}
+                      height={500}
+                      src={user.photo_url}
+                      className="rounded"
+                    />
+                  </a>
+                </Link>
+                <div className="flex flex-col text-sm">
+                  <Link href={`/users/${user.uid}`}>
+                    <a className="text-green-500 font-semibold hover:underline w-fit">
+                      {user.display_name}
+                    </a>
+                  </Link>
+                  <p className="text-gray-600">{user.opinion}</p>
+                </div>
+              </div>
+            ))}
+          </>
+        ) : (
+          <p className="text-gray-600 mx-auto py-8">There is no comments.</p>
+        )}
       </div>
     </>
   );

@@ -67,7 +67,7 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
         >
           <form onSubmit={(e) => createWatchLog("watched", e)}>
             <div className="grid grid-cols-4 gap-4">
-              <p className="text-green-500 font-bold">{anime.title}</p>
+              <p className="text-green-500 font-bold col-span-4">{anime.title}</p>
               <p className="col-start-1 text-sm text-gray-600">watched day</p>
               <input
                 type="date"

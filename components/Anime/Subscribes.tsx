@@ -6,6 +6,7 @@ import { firebase } from "lib/Firebase";
 import Modal from "react-modal";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { customStyles } from "utils/modalStyle";
+import { useCheckWatchLog } from "hooks/useCheckWatchLog";
 
 interface InitialProps {
   anime: Anime;
@@ -47,7 +48,11 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
       <div className="p-4 flex md:flex-col gap-2">
         <button
           onClick={() => setIsModalOpen(!isModalOpen)}
-          className="border w-full px-2 py-1 hover:bg-green-500 hover:text-white text-sm text-gray-600 flex gap-2"
+          className={`w-full px-2 py-1  text-sm  flex gap-2 ${
+            useCheckWatchLog(anime, "watched")
+              ? "text-white bg-green-500 hover:bg-green-400"
+              : "border text-gray-600 hover:bg-green-500 hover:text-white"
+          }`}
         >
           <div className="text-xl">
             <BiListCheck />
@@ -84,7 +89,11 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
         </Modal>
         <button
           onClick={() => createWatchLog("watching")}
-          className="border w-full px-2 py-1 hover:bg-green-500 hover:text-white text-sm text-gray-600 flex gap-2"
+          className={`w-full px-2 py-1 text-sm flex gap-2 ${
+            useCheckWatchLog(anime, "watching")
+              ? "text-white bg-green-500 hover:bg-green-400"
+              : "border text-gray-600 hover:bg-green-500 hover:text-white"
+          }`}
         >
           <div className="text-xl">
             <FaSearchPlus />
@@ -93,7 +102,11 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
         </button>
         <button
           onClick={() => createWatchLog("will_watch")}
-          className="border w-full px-2 py-1 hover:bg-green-500 hover:text-white text-sm text-gray-600 flex gap-2"
+          className={`w-full px-2 py-1 text-sm flex gap-2 ${
+            useCheckWatchLog(anime, "will_watch")
+              ? "text-white bg-green-500 hover:bg-green-400"
+              : "border text-gray-600 hover:bg-green-500 hover:text-white"
+          }`}
         >
           <div className="text-xl">
             <ImEye />

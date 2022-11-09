@@ -5,7 +5,7 @@ import axios from "axios";
 import { firebase } from "lib/Firebase";
 import Modal from "react-modal";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
-import { customStyles } from "lib/modalStyle";
+import { customStyles } from "utils/modalStyle";
 
 interface InitialProps {
   anime: Anime;

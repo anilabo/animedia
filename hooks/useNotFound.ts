@@ -1,3 +1,4 @@
+// これはカスタムフックではないので、のちにutilsに移動すること。
 import { AxiosError } from "axios";
 
 interface IErrorResponse {

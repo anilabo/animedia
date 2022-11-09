@@ -1,3 +1,4 @@
+// これはカスタムフックではないので、のちにutilsに移動すること。
 import { seasonNum } from "hooks/useSeason";
 
 const params = [

@@ -1,3 +1,4 @@
+// これはカスタムフックではないので、のちにutilsに移動すること。
 const seasons = [
   { name: "winter", number: 1 },
   { name: "spring", number: 2 },

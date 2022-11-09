@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import Comment from "components/Anime/Comment";
 
 interface InitialProps {
   anime: Anime;
@@ -34,26 +34,7 @@ const AnimeWatchedComments = ({ anime, watchedUsers }: InitialProps) => {
         {watchedUsers[0] ? (
           <>
             {watchedUsers.map((user) => (
-              <div className="flex gap-4 p-4" key={user.uid}>
-                <Link href={`/users/${user.uid}`}>
-                  <a className="w-12 h-12">
-                    <Image
-                      width={500}
-                      height={500}
-                      src={user.photo_url}
-                      className="rounded"
-                    />
-                  </a>
-                </Link>
-                <div className="flex flex-col text-sm">
-                  <Link href={`/users/${user.uid}`}>
-                    <a className="text-green-500 font-semibold hover:underline w-fit">
-                      {user.display_name}
-                    </a>
-                  </Link>
-                  <p className="text-gray-600">{user.opinion}</p>
-                </div>
-              </div>
+              <Comment user={user} />
             ))}
           </>
         ) : (

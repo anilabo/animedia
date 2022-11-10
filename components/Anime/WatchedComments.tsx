@@ -34,7 +34,7 @@ const AnimeWatchedComments = ({ anime, watchedUsers }: InitialProps) => {
         {watchedUsers[0] ? (
           <>
             {watchedUsers.map((user) => (
-              <Comment user={user} />
+              <Comment user={user} key={user.uid} />
             ))}
           </>
         ) : (

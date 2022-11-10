@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+import { formatDate } from "utils/formatDate";
 
 type InitialProps = { user: User };
 
 const Comment = ({ user }: InitialProps) => {
   return (
     <>
-      <div className="flex gap-4 p-4" key={user.uid}>
+      <div className="flex gap-4 p-4 border-b">
         <Link href={`/users/${user.uid}`}>
           <a className="w-12 h-12">
             <Image
@@ -24,6 +25,14 @@ const Comment = ({ user }: InitialProps) => {
             </a>
           </Link>
           <p className="text-gray-600">{user.opinion}</p>
+          <div className="flex gap-2 text-gray-600 mt-2">
+            <div className="border rounded px-4">ナイス</div>
+            <p>☆1</p>
+            <p>コメント(2)</p>
+            <p className="text-gray-400 text-xs mt-auto">
+              {user.finished_at && formatDate(user.finished_at)}
+            </p>
+          </div>
         </div>
       </div>
     </>

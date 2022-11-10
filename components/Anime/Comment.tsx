@@ -25,10 +25,10 @@ const Comment = ({ user }: InitialProps) => {
             </a>
           </Link>
           <p className="text-gray-600">{user.opinion}</p>
-          <div className="flex gap-2 text-gray-600 mt-2">
-            <div className="border rounded px-4">ナイス</div>
-            <p>☆1</p>
-            <p>コメント(2)</p>
+          <div className="flex gap-2 text-gray-600 mt-1">
+            <button className="border rounded px-4 py-1 text-xs hover:bg-green-500 hover:text-white">Nice!</button>
+            <p className="text-xs mt-auto">☆1</p>
+            <p className="text-xs mt-auto">コメント(2)</p>
             <p className="text-gray-400 text-xs mt-auto">
               {user.finished_at && formatDate(user.finished_at)}
             </p>

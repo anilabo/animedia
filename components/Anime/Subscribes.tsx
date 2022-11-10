@@ -50,9 +50,10 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
           onClick={() => setIsModalOpen(!isModalOpen)}
           className={`w-full px-2 py-1  text-sm  flex gap-2 ${
             useCheckWatchLog(anime, "watched")
-              ? "text-white bg-green-500 hover:bg-green-400"
-              : "border text-gray-600 hover:bg-green-500 hover:text-white"
+              ? "text-white bg-green-500"
+              : "border text-gray-600 hover:text-white hover:bg-green-500"
           }`}
+          disabled={useCheckWatchLog(anime, "watched")}
         >
           <div className="text-xl">
             <BiListCheck />

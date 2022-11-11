@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { useCreateWatchLog } from "hooks/useCreateWatchLog";
 
-type InitialProps = { anime: Anime };
+type InitialProps = {
+  anime: Anime;
+  setWatchedUsers: Dispatch<SetStateAction<User[]>>;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+};
 
-const AnimeOpinionFormModal = ({ anime }: InitialProps) => {
+const AnimeOpinionFormModal = ({ anime, setWatchedUsers, setIsModalOpen }: InitialProps) => {
   const [opinion, setOpinion] = useState<string>("");
   const [finishedAt, setFinishedAt] = useState("");
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    useCreateWatchLog(anime, "watched", setWatchedUsers, e, opinion, finishedAt).then(() => {
+      setIsModalOpen(false)
+    });
+  };
+
   return (
-    <form onSubmit={(e) => useCreateWatchLog(anime, "watched", e, opinion, finishedAt)}>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <div className="grid grid-cols-4 gap-4">
         <p className="text-green-500 font-bold col-span-4">{anime.title}</p>
         <p className="col-start-1 text-sm text-gray-600">watched day</p>

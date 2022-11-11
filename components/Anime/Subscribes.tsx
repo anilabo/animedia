@@ -42,10 +42,14 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
           ariaHideApp={false}
           onRequestClose={() => setIsModalOpen(false)}
         >
-          <AnimeOpinionFormModal anime={anime} />
+          <AnimeOpinionFormModal
+            anime={anime}
+            setWatchedUsers={setWatchedUsers}
+            setIsModalOpen={setIsModalOpen}
+          />
         </Modal>
         <button
-          onClick={() => useCreateWatchLog(anime, "watching")}
+          onClick={() => useCreateWatchLog(anime, "watching", setWatchedUsers)}
           className={`w-full px-2 py-1 text-sm flex gap-2 ${
             useCheckWatchLog(anime, "watching")
               ? "text-white bg-green-500 hover:bg-green-400"
@@ -58,7 +62,7 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
           <p className="my-auto">Watching</p>
         </button>
         <button
-          onClick={() => useCreateWatchLog(anime, "will_watch")}
+          onClick={() => useCreateWatchLog(anime, "will_watch", setWatchedUsers)}
           className={`w-full px-2 py-1 text-sm flex gap-2 ${
             useCheckWatchLog(anime, "will_watch")
               ? "text-white bg-green-500 hover:bg-green-400"

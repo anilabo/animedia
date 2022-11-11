@@ -9,6 +9,7 @@ import { useCreateWatchLog } from "hooks/useCreateWatchLog";
 import { useEffect } from "react";
 import { useCurrentUser } from "hooks/useCurrentUser";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 interface InitialProps {
   anime: Anime;
@@ -20,6 +21,26 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
   const currentUser = useCurrentUser()
   const router = useRouter()
   const [watchingProgress, setWatchingProgress] = useState<AnimeWatchingProgressType | null>(null)
+
+  const deleteWatchLoog = async () => {
+    const token = await currentUser?.getIdToken()
+    const params = { token }
+    axios.delete(`${process.env.NEXT_PUBLIC_ANILABO_URL}/animes/${anime.public_uid}/watch_logs`, {
+      params
+    }).then((res) => {
+      setWatchingProgress(null)
+    })
+  }
+
+  const handleClick = (progress: AnimeWatchingProgressType) => {
+    if (currentUser) {
+      watchingProgress == progress
+        ? deleteWatchLoog()
+        : useCreateWatchLog(anime, progress, setWatchedUsers, setWatchingProgress)
+    } else {
+      router.push('/signup')
+    }
+  }
 
   useEffect(() => {
     if (anime.watched_users.filter((user) => user.uid == currentUser?.uid)[0]) {
@@ -41,10 +62,10 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
       <div className="p-4 flex md:flex-col gap-2">
         <button
           onClick={() => currentUser ? setIsModalOpen(!isModalOpen) : router.push('/signup')}
-          className={`w-full px-2 py-1  text-sm  flex gap-2 ${
+          className={`w-full px-2 py-1  text-sm  flex gap-2 border ${
             watchingProgress == "watched"
               ? "text-white bg-green-500"
-              : "border text-gray-600 hover:text-white hover:bg-green-500"
+              : "text-gray-600 hover:text-white hover:bg-green-500"
           }`}
           disabled={watchingProgress == "watched"}
         >
@@ -67,11 +88,11 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
           />
         </Modal>
         <button
-          onClick={() => currentUser ? useCreateWatchLog(anime, "watching", setWatchedUsers, setWatchingProgress) : router.push('/signup') }
-          className={`w-full px-2 py-1 text-sm flex gap-2 ${
+          onClick={() => handleClick("watching") }
+          className={`w-full px-2 py-1 text-sm flex gap-2 border ${
             watchingProgress == "watching"
               ? "text-white bg-green-500 hover:bg-green-400"
-              : "border text-gray-600 hover:bg-green-500 hover:text-white"
+              : "text-gray-600 hover:bg-green-500 hover:text-white"
           }`}
         >
           <div className="text-xl">
@@ -80,11 +101,11 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
           <p className="my-auto">Watching</p>
         </button>
         <button
-          onClick={() => currentUser ? useCreateWatchLog(anime, "will_watch", setWatchedUsers, setWatchingProgress) : router.push('/signup')}
-          className={`w-full px-2 py-1 text-sm flex gap-2 ${
+          onClick={() => handleClick("will_watch")}
+          className={`w-full px-2 py-1 text-sm flex gap-2 border ${
             watchingProgress == "will_watch"
               ? "text-white bg-green-500 hover:bg-green-400"
-              : "border text-gray-600 hover:bg-green-500 hover:text-white"
+              : "text-gray-600 hover:bg-green-500 hover:text-white"
           }`}
         >
           <div className="text-xl">

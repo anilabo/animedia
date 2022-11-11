@@ -4,8 +4,9 @@ import axios from "axios";
 
 export const useCreateWatchLog = async (
   anime: Anime,
-  progress: "watched" | "watching" | "will_watch",
+  progress: AnimeWatchingProgressType,
   setWatchedUsers: Dispatch<SetStateAction<User[]>>,
+  setWatchingProgress: Dispatch<SetStateAction<AnimeWatchingProgressType | null>>,
   e?: FormEvent<HTMLFormElement>,
   opinion?: string,
   finishedAt?: string,
@@ -23,5 +24,6 @@ export const useCreateWatchLog = async (
     params
   ).then((res) => {
     setWatchedUsers(res.data.watched_users)
+    setWatchingProgress(progress)
   });
 };

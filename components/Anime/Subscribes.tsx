@@ -6,7 +6,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { customStyles } from "utils/modalStyle";
 import AnimeOpinionFormModal from "./OpinionFormModal";
 import { useCreateWatchLog } from "hooks/useCreateWatchLog";
-import { useCheckWatchLog } from "hooks/useCheckWatchLog";
+import { useEffect } from "react";
+import { useCurrentUser } from "hooks/useCurrentUser";
 
 interface InitialProps {
   anime: Anime;
@@ -15,6 +16,20 @@ interface InitialProps {
 
 const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const currentUser = useCurrentUser()
+  const [watchingProgress, setWatchingProgress] = useState<AnimeWatchingProgressType | null>(null)
+
+  useEffect(() => {
+    if (anime.watched_users.filter((user) => user.uid == currentUser?.uid)[0]) {
+      setWatchingProgress("watched");
+    } else if (anime.watching_users.filter((user) => user.uid == currentUser?.uid)[0]) {
+      setWatchingProgress("watching");
+    } else if (anime.will_watch_users.filter((user) => user.uid == currentUser?.uid)[0]) {
+      setWatchingProgress("will_watch");
+    } else {
+      setWatchingProgress(null)
+    }
+  }, [anime, currentUser]);
 
   return (
     <>
@@ -25,11 +40,11 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
         <button
           onClick={() => setIsModalOpen(!isModalOpen)}
           className={`w-full px-2 py-1  text-sm  flex gap-2 ${
-            useCheckWatchLog(anime) == "watched"
+            watchingProgress == "watched"
               ? "text-white bg-green-500"
               : "border text-gray-600 hover:text-white hover:bg-green-500"
           }`}
-          disabled={useCheckWatchLog(anime) == "watched"}
+          disabled={watchingProgress == "watched"}
         >
           <div className="text-xl">
             <BiListCheck />
@@ -45,13 +60,14 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
           <AnimeOpinionFormModal
             anime={anime}
             setWatchedUsers={setWatchedUsers}
+            setWatchingProgress={setWatchingProgress}
             setIsModalOpen={setIsModalOpen}
           />
         </Modal>
         <button
-          onClick={() => useCreateWatchLog(anime, "watching", setWatchedUsers)}
+          onClick={() => useCreateWatchLog(anime, "watching", setWatchedUsers, setWatchingProgress)}
           className={`w-full px-2 py-1 text-sm flex gap-2 ${
-            useCheckWatchLog(anime) == "watching"
+            watchingProgress == "watching"
               ? "text-white bg-green-500 hover:bg-green-400"
               : "border text-gray-600 hover:bg-green-500 hover:text-white"
           }`}
@@ -62,9 +78,9 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
           <p className="my-auto">Watching</p>
         </button>
         <button
-          onClick={() => useCreateWatchLog(anime, "will_watch", setWatchedUsers)}
+          onClick={() => useCreateWatchLog(anime, "will_watch", setWatchedUsers, setWatchingProgress)}
           className={`w-full px-2 py-1 text-sm flex gap-2 ${
-            useCheckWatchLog(anime) == "will_watch"
+            watchingProgress == "will_watch"
               ? "text-white bg-green-500 hover:bg-green-400"
               : "border text-gray-600 hover:bg-green-500 hover:text-white"
           }`}

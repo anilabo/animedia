@@ -5,14 +5,15 @@ type InitialProps = {
   anime: Anime;
   setWatchedUsers: Dispatch<SetStateAction<User[]>>;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  setWatchingProgress: Dispatch<SetStateAction<AnimeWatchingProgressType | null>>;
 };
 
-const AnimeOpinionFormModal = ({ anime, setWatchedUsers, setIsModalOpen }: InitialProps) => {
+const AnimeOpinionFormModal = ({ anime, setWatchedUsers, setIsModalOpen, setWatchingProgress }: InitialProps) => {
   const [opinion, setOpinion] = useState<string>("");
   const [finishedAt, setFinishedAt] = useState("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    useCreateWatchLog(anime, "watched", setWatchedUsers, e, opinion, finishedAt).then(() => {
+    useCreateWatchLog(anime, "watched", setWatchedUsers, setWatchingProgress, e, opinion, finishedAt).then(() => {
       setIsModalOpen(false)
     });
   };

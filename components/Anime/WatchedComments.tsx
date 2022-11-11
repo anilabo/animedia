@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Comment from "components/Anime/Comment";
+import { Dispatch, SetStateAction } from "react";
 
 interface InitialProps {
   anime: Anime;
   watchedUsers: User[];
+  setWatchedUsers: Dispatch<SetStateAction<User[]>>
 }
 
-const AnimeWatchedComments = ({ anime, watchedUsers }: InitialProps) => {
+const AnimeWatchedComments = ({ anime, watchedUsers, setWatchedUsers }: InitialProps) => {
   return (
     <>
       <div className="flex flex-col border rounded">
@@ -34,7 +36,7 @@ const AnimeWatchedComments = ({ anime, watchedUsers }: InitialProps) => {
         {watchedUsers[0] ? (
           <>
             {watchedUsers.map((user) => (
-              <Comment user={user} key={user.uid} />
+              <Comment anime={anime} user={user} setWatchedUsers={setWatchedUsers} key={user.uid} />
             ))}
           </>
         ) : (

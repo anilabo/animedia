@@ -67,7 +67,7 @@ const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
             )}
           </div>
           <div className="md:w-2/3">
-            <AnimeWatchedComments anime={anime} watchedUsers={watchedUsers} />
+            <AnimeWatchedComments anime={anime} watchedUsers={watchedUsers} setWatchedUsers={setWatchedUsers} />
           </div>
         </div>
       </div>

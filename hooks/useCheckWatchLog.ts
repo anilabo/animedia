@@ -1,30 +1,21 @@
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "./useCurrentUser";
 
-export const useCheckWatchLog = (
-  anime: Anime,
-  progress: "watched" | "watching" | "will_watch"
-) => {
+export const useCheckWatchLog = (anime: Anime) => {
   const currentUser = useCurrentUser();
-  const [judge, setJudge] = useState<boolean>(false);
+  const [progrss, setProgress] = useState<AnimeWatchingProgressType | null>();
 
   useEffect(() => {
-    let result: boolean = false
-
-    switch (progress) {
-      case "watched":
-        result = !!anime.watched_users.filter((user) => user.uid == currentUser?.uid)[0]
-        break
-      case "watching":
-        result = !!anime.watching_users.filter((user) => user.uid == currentUser?.uid)[0]
-        break
-      case "will_watch":
-        result = !!anime.will_watch_users.filter((user) => user.uid == currentUser?.uid)[0]
-        break
+    if (anime.watched_users.filter((user) => user.uid == currentUser?.uid)[0]) {
+      setProgress("watched");
+    } else if (anime.watching_users.filter((user) => user.uid == currentUser?.uid)[0]) {
+      setProgress("watching");
+    } else if (anime.will_watch_users.filter((user) => user.uid == currentUser?.uid)[0]) {
+      setProgress("will_watch");
+    } else {
+      setProgress(null)
     }
-
-    setJudge(result)
   }, [anime, currentUser]);
 
-  return judge;
+  return progrss;
 };

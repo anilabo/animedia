@@ -38,3 +38,5 @@ type AnimeShortInfo = {
   opinion?: string
   finished_at?: string
 }
+
+type AnimeWatchingProgressType = "watched" | "watching" | "will_watch"

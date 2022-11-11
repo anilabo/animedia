@@ -4,9 +4,9 @@ import { FaSearchPlus } from "react-icons/fa";
 import Modal from "react-modal";
 import { Dispatch, SetStateAction, useState } from "react";
 import { customStyles } from "utils/modalStyle";
-import { useCheckWatchLog } from "hooks/useCheckWatchLog";
 import AnimeOpinionFormModal from "./OpinionFormModal";
 import { useCreateWatchLog } from "hooks/useCreateWatchLog";
+import { useCheckWatchLog } from "hooks/useCheckWatchLog";
 
 interface InitialProps {
   anime: Anime;
@@ -25,11 +25,11 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
         <button
           onClick={() => setIsModalOpen(!isModalOpen)}
           className={`w-full px-2 py-1  text-sm  flex gap-2 ${
-            useCheckWatchLog(anime, "watched")
+            useCheckWatchLog(anime) == "watched"
               ? "text-white bg-green-500"
               : "border text-gray-600 hover:text-white hover:bg-green-500"
           }`}
-          disabled={useCheckWatchLog(anime, "watched")}
+          disabled={useCheckWatchLog(anime) == "watched"}
         >
           <div className="text-xl">
             <BiListCheck />
@@ -51,7 +51,7 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
         <button
           onClick={() => useCreateWatchLog(anime, "watching", setWatchedUsers)}
           className={`w-full px-2 py-1 text-sm flex gap-2 ${
-            useCheckWatchLog(anime, "watching")
+            useCheckWatchLog(anime) == "watching"
               ? "text-white bg-green-500 hover:bg-green-400"
               : "border text-gray-600 hover:bg-green-500 hover:text-white"
           }`}
@@ -64,7 +64,7 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
         <button
           onClick={() => useCreateWatchLog(anime, "will_watch", setWatchedUsers)}
           className={`w-full px-2 py-1 text-sm flex gap-2 ${
-            useCheckWatchLog(anime, "will_watch")
+            useCheckWatchLog(anime) == "will_watch"
               ? "text-white bg-green-500 hover:bg-green-400"
               : "border text-gray-600 hover:bg-green-500 hover:text-white"
           }`}

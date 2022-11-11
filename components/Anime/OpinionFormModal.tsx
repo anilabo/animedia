@@ -27,6 +27,7 @@ const AnimeOpinionFormModal = ({ anime, setWatchedUsers, setIsModalOpen, setWatc
           type="date"
           className="col-span-3 rounded border-gray-400 text-gray-600"
           onChange={(e) => setFinishedAt(e.target.value)}
+          required
         />
         <p className="text-sm text-gray-600">Comment & Review</p>
         <textarea
@@ -34,6 +35,7 @@ const AnimeOpinionFormModal = ({ anime, setWatchedUsers, setIsModalOpen, setWatc
           className="col-span-3 rounded border-gray-400 text-gray-600"
           onChange={(e) => setOpinion(e.target.value)}
           placeholder="Type your comment."
+          required
         ></textarea>
         <button className="col-end-5 bg-green-500 rounded text-white py-1 hover:bg-green-600">
           Submit

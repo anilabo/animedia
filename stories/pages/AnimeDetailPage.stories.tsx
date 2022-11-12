@@ -1,6 +1,6 @@
 import AnimeDetail from "../../pages/animes/[hash_id]";
 
-export default {}
+export default {};
 
 const dummyAnime: Anime = {
   id: 1,
@@ -16,7 +16,10 @@ const dummyAnime: Anime = {
   year: 2022,
   season: "spring",
   companies: [],
-  series: []
-}
+  series: [],
+  watched_users: [],
+  watching_users: [],
+  will_watch_users: [],
+};
 
-export const AnimeDetailPage = () => <AnimeDetail anime={dummyAnime} />
+export const AnimeDetailPage = () => <AnimeDetail anime={dummyAnime} />;

@@ -1,6 +1,22 @@
+import { useEffect, useState } from "react";
+
 type InitialProps = { anime: Anime }
 
 const AnimeInformation = ({ anime }: InitialProps) => {
+  const [registrationsCount, setRegistrationsCont] = useState<number>(
+    anime.watched_users.length +
+    anime.watching_users.length +
+    anime.will_watch_users.length
+  )
+
+  useEffect(() => {
+    setRegistrationsCont(
+      anime.watched_users.length +
+      anime.watching_users.length +
+      anime.will_watch_users.length
+    )
+  }, [anime])
+
   return (
     <>
       <div className="bg-gray-100 p-2">
@@ -9,7 +25,7 @@ const AnimeInformation = ({ anime }: InitialProps) => {
       <div className="flex flex-col text-gray-600 text-sm">
         <div className="flex gap-4 px-8 py-4">
           <p>Registrations</p>
-          <p className="text-green-600">1,000</p>
+          <p className="text-green-600">{ registrationsCount }</p>
         </div>
       </div>
     </>

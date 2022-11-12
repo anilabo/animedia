@@ -14,10 +14,13 @@ type Anime = {
   year: number
   season: string
   companies: Company[]
-  series: SeriesAnimes[]
+  series: AnimeShortInfo[]
+  watched_users: User[]
+  watching_users: User[]
+  will_watch_users: User[]
 }
 
-type SeriesAnimes = {
+type AnimeShortInfo = {
   id: number
   public_uid: string
   title: string
@@ -32,4 +35,8 @@ type SeriesAnimes = {
   thumbnail_url: string
   year: number
   season: string
+  opinion?: string
+  finished_at?: string
 }
+
+type AnimeWatchingProgressType = "watched" | "watching" | "will_watch"

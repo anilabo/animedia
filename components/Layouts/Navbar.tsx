@@ -1,15 +1,15 @@
 import { auth, firebase } from "lib/Firebase";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import NavbarItems from "./NavbarItems";
 import { Avatar, Dropdown } from "flowbite-react";
 import { signOut } from "firebase/auth";
 import axios from "axios";
+import { useCurrentUser } from "hooks/useCurrentUser";
 
 const Navbar = () => {
   const router = useRouter();
-  const [user, setUser] = useState<firebase.User | null>(null);
+  const currentUser = useCurrentUser();
   const signUpWithGoogle = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -23,9 +23,11 @@ const Navbar = () => {
               token,
               user: { email: res.user.email },
             };
-            axios.post(`${process.env.NEXT_PUBLIC_ANILABO_URL}/users`, params).then(() => {
-              router.push("/");
-            });
+            axios
+              .post(`${process.env.NEXT_PUBLIC_ANILABO_URL}/users`, params)
+              .then(() => {
+                router.push("/");
+              });
           }
         })
         .catch(alert);
@@ -43,12 +45,6 @@ const Navbar = () => {
       });
   };
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-  }, []);
-
   return (
     <>
       <div className="max-w-6xl mx-auto m-2 mb-4">
@@ -57,7 +53,7 @@ const Navbar = () => {
             <a className="text-xl font-bold px-4 py-2 my-auto">Animedia</a>
           </Link>
           <div className="flex ml-auto">
-            {!!user ? (
+            {currentUser ? (
               <div className="my-auto">
                 <Dropdown
                   arrowIcon={false}
@@ -65,15 +61,17 @@ const Navbar = () => {
                   label={
                     <Avatar
                       alt="User settings"
-                      img={`${user.photoURL}`}
+                      img={`${currentUser.photoURL}`}
                       rounded={true}
                     />
                   }
                 >
                   <Dropdown.Header>
-                    <span className="block text-sm">{user.displayName}</span>
+                    <span className="block text-sm">
+                      {currentUser.displayName}
+                    </span>
                     <span className="block truncate text-sm font-medium">
-                      {user.email}
+                      {currentUser.email}
                     </span>
                   </Dropdown.Header>
                   <Dropdown.Item>Dashboard</Dropdown.Item>

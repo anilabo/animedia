@@ -1,13 +1,17 @@
 import AnimeList from "components/Anime/List";
 import Image from "next/image";
+import Comment from "components/Anime/Comment";
+import { useState } from "react";
 
 type InitialProps = { user: User };
 
 const UserComponent = ({ user }: InitialProps) => {
+  const [watchedUsers, setWatchedUsers] = useState<User[]>([]);
+
   return (
     <div className="max-w-6xl m-2 md:mx-auto mb-10">
       <div className="grid grid-cols-3 gap-4 text-gray-600 ">
-        <div className="rounded border border-gray-300 p-4 flex flex-col gap-4 h-fit">
+        <div className="rounded border p-4 flex flex-col gap-4 h-fit">
           <p className="mx-auto font-semibold text-xl">{user.display_name}</p>
           <div className="h-40 w-40 mx-auto">
             <Image
@@ -24,12 +28,15 @@ const UserComponent = ({ user }: InitialProps) => {
         <div className="col-span-2 flex flex-col gap-4">
           <div className="rounded border">
             {user.watched_animes.map((anime) => (
-              <>
-                <p>{anime.title}</p>
-                <p>{anime.thumbnail_url}</p>
-                <p>{anime.opinion}</p>
-                <hr />
-              </>
+              <Comment
+                anime={anime}
+                user={user}
+                setWatchedUsers={setWatchedUsers}
+                opinion={anime.opinion as string}
+                finishedAt={anime.finished_at as string}
+                visibleAnime={true}
+                key={anime.public_uid}
+              />
             ))}
           </div>
           <AnimeList animes={user.watched_animes} progress="watched" />

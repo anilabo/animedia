@@ -5,10 +5,14 @@ import { Dispatch, SetStateAction } from "react";
 interface InitialProps {
   anime: Anime;
   watchedUsers: User[];
-  setWatchedUsers: Dispatch<SetStateAction<User[]>>
+  setWatchedUsers: Dispatch<SetStateAction<User[]>>;
 }
 
-const AnimeWatchedComments = ({ anime, watchedUsers, setWatchedUsers }: InitialProps) => {
+const AnimeWatchedComments = ({
+  anime,
+  watchedUsers,
+  setWatchedUsers,
+}: InitialProps) => {
   return (
     <>
       <div className="flex flex-col border rounded">
@@ -36,7 +40,15 @@ const AnimeWatchedComments = ({ anime, watchedUsers, setWatchedUsers }: InitialP
         {watchedUsers[0] ? (
           <>
             {watchedUsers.map((user) => (
-              <Comment anime={anime} user={user} setWatchedUsers={setWatchedUsers} key={user.uid} />
+              <Comment
+                anime={anime}
+                user={user}
+                setWatchedUsers={setWatchedUsers}
+                opinion={user.opinion as string}
+                finishedAt={user.finished_at as string}
+                visibleAnime={false}
+                key={user.uid}
+              />
             ))}
           </>
         ) : (

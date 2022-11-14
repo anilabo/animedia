@@ -35,6 +35,9 @@ const Navbar = () => {
       alert(error);
     }
   };
+  const goToMyPage = () => {
+    router.push(`/users/${currentUser?.uid}`)
+  }
   const logout = () => {
     signOut(auth)
       .then(() => {
@@ -74,7 +77,7 @@ const Navbar = () => {
                       {currentUser.email}
                     </span>
                   </Dropdown.Header>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
+                  <Dropdown.Item onClick={() => goToMyPage()}>MyPage</Dropdown.Item>
                   <Dropdown.Item>Settings</Dropdown.Item>
                   <Dropdown.Item>Earnings</Dropdown.Item>
                   <Dropdown.Divider />

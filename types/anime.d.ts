@@ -37,6 +37,7 @@ type AnimeShortInfo = {
   season: string
   opinion?: string
   finished_at?: string
+  is_spoiler?: boolean
 }
 
 type AnimeWatchingProgressType = "watched" | "watching" | "will_watch"

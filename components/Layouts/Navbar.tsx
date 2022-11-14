@@ -55,7 +55,7 @@ const Navbar = () => {
           <Link href="/">
             <a className="text-xl font-bold px-4 py-2 my-auto">Animedia</a>
           </Link>
-          <div className="flex ml-auto">
+          <div className="flex ml-auto px-2">
             {currentUser ? (
               <div className="my-auto">
                 <Dropdown

@@ -6,12 +6,12 @@ interface InitialProps {
 
 const UserSubscribedAt = ({ user }: InitialProps) => {
   return (
-    <div className="text-gray-600 text-sm grid grid-cols-3">
-      <div className="bg-gray-100 border-y border-l rounded-l w-full px-4 py-2 mx-auto">
+    <div className="text-gray-600 text-sm grid md:grid-cols-3 border md:border-none rounded">
+      <div className="bg-gray-100 md:border-y md:border-l md:rounded-l w-full px-4 py-2 mx-auto">
         Subscribed at
       </div>
-      <div className="col-span-2 border-y border-r w-full h-full rounded-r flex">
-        <p className="m-auto text-green-500">{formatDate(user.created_at)}</p>
+      <div className="md:col-span-2 md:border-y md:border-r w-full h-full md:rounded-r flex">
+        <p className="m-auto text-green-500 p-2 md:p-0">{formatDate(user.created_at)}</p>
       </div>
     </div>
   );

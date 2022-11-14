@@ -61,6 +61,11 @@ const Comment = ({
                   {user.display_name}
                 </a>
               </Link>
+              {user.is_spoiler && (
+                <div className="bg-red-500 rounded flex ml-2">
+                  <p className="text-xs my-auto text-white px-2">SPOILER</p>
+                </div>
+              )}
               {visibleAnime && (
                 <div className="text-xs text-gray-500 my-auto flex">
                   commented on &nbsp;

@@ -32,9 +32,9 @@ const UserComponent = ({ user }: InitialProps) => {
               />
             ))}
           </div>
-          <AnimeList animes={user.watched_animes} progress="watched" />
-          <AnimeList animes={user.watching_animes} progress="watching" />
-          <AnimeList animes={user.will_watch_animes} progress="will_watch" />
+          <AnimeList animes={user.watched_animes} progress="watched" user={user} />
+          <AnimeList animes={user.watching_animes} progress="watching" user={user} />
+          <AnimeList animes={user.will_watch_animes} progress="will_watch" user={user} />
         </div>
       </div>
     </div>

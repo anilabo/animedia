@@ -27,12 +27,24 @@ const UserComponent = ({ user }: InitialProps) => {
               フォロー
             </button>
           </div>
+          <div className="rounded border grid grid-cols-2 text-sm divide-x">
+            <p className="w-full py-2 m-auto text-center">
+              <b className="font-semibold text-green-500 text-md">9</b>{" "}
+              Following
+            </p>
+            <p className="w-full py-2 m-auto text-center">
+              <b className="font-semibold text-green-500 text-md">10</b>{" "}
+              Followed
+            </p>
+          </div>
           <div className="text-gray-600 text-sm grid grid-cols-3">
             <div className="bg-gray-100 border-y border-l rounded-l w-full px-4 py-2 mx-auto">
               Subscribed at
             </div>
             <div className="col-span-2 border-y border-r w-full h-full rounded-r flex">
-              <p className="m-auto">{formatDate(user.created_at)}</p>
+              <p className="m-auto text-green-500">
+                {formatDate(user.created_at)}
+              </p>
             </div>
           </div>
         </div>

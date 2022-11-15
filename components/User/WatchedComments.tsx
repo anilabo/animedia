@@ -24,6 +24,7 @@ const UserWatchedComments = ({ user }: InitialProps) => {
                 opinion={anime.opinion as string}
                 finishedAt={anime.finished_at as string}
                 visibleAnime={true}
+                isSpoiler={anime.is_spoiler}
                 key={anime.public_uid}
               />
             ))}

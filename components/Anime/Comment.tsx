@@ -13,6 +13,7 @@ type InitialProps = {
   opinion: string;
   finishedAt: string;
   visibleAnime: boolean;
+  isSpoiler?: boolean
 };
 
 const Comment = ({
@@ -22,6 +23,7 @@ const Comment = ({
   opinion,
   finishedAt,
   visibleAnime,
+  isSpoiler,
 }: InitialProps) => {
   const currentUser = useCurrentUser();
 
@@ -61,7 +63,7 @@ const Comment = ({
                   {user.display_name}
                 </a>
               </Link>
-              {user.is_spoiler && (
+              {(isSpoiler) && (
                 <div className="bg-red-500 rounded flex ml-2">
                   <p className="text-xs my-auto text-white px-2">SPOILER</p>
                 </div>

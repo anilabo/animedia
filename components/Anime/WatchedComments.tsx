@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Comment from "components/Anime/Comment";
 import { Dispatch, SetStateAction } from "react";
+import { useRouter } from "next/router";
 
 interface InitialProps {
   anime: Anime;
@@ -25,17 +26,12 @@ const AnimeWatchedComments = ({
               all
             </a>
           </Link>
-          <Link href={`/animes/${anime.public_uid}#spoiler`}>
+          <Link href={`/animes/${anime.public_uid}?visible_level=only_spoiler`}>
             <a className="my-auto py-1 border-r border-gray-300 bg-gray-100 border-b">
               spoiler
             </a>
           </Link>
-          <Link href={`/animes/${anime.public_uid}#likes`}>
-            <a className="my-auto py-1 border-r border-gray-300 bg-gray-100 border-b">
-              likes
-            </a>
-          </Link>
-          <div className="col-span-3 bg-gray-100 border-gray-300 border-b"></div>
+          <div className="col-span-4 bg-gray-100 border-gray-300 border-b"></div>
         </div>
         {watchedUsers[0] ? (
           <>
@@ -47,6 +43,7 @@ const AnimeWatchedComments = ({
                 opinion={user.opinion as string}
                 finishedAt={user.finished_at as string}
                 visibleAnime={false}
+                isSpoiler={user.is_spoiler}
                 key={user.uid}
               />
             ))}

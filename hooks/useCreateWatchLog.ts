@@ -10,6 +10,7 @@ export const useCreateWatchLog = async (
   e?: FormEvent<HTMLFormElement>,
   opinion?: string,
   finishedAt?: string,
+  hasSpoiler?: boolean
 ) => {
   e?.preventDefault();
   const token = await firebase.auth().currentUser?.getIdToken();
@@ -18,6 +19,7 @@ export const useCreateWatchLog = async (
     progress,
     opinion,
     finished_at: finishedAt,
+    is_spoiler: hasSpoiler
   };
   axios.post(
     `${process.env.NEXT_PUBLIC_ANILABO_URL}/animes/${anime.public_uid}/watch_logs`,

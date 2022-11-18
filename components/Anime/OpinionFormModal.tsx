@@ -1,5 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { useCreateWatchLog } from "hooks/useCreateWatchLog";
+import { useRouter } from "next/router";
 
 type InitialProps = {
   anime: Anime;
@@ -19,6 +20,8 @@ const AnimeOpinionFormModal = ({
   const [opinion, setOpinion] = useState<string>("");
   const [finishedAt, setFinishedAt] = useState("");
   const [hasSpoiler, setHasSpoiler] = useState<boolean>(false);
+  const router = useRouter()
+  const { visible_level } = router.query
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     useCreateWatchLog(
@@ -29,7 +32,8 @@ const AnimeOpinionFormModal = ({
       e,
       opinion,
       finishedAt,
-      hasSpoiler
+      hasSpoiler,
+      visible_level as string
     ).then(() => {
       setIsModalOpen(false);
     });

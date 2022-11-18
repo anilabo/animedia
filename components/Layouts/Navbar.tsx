@@ -6,10 +6,12 @@ import { Avatar, Dropdown } from "flowbite-react";
 import { signOut } from "firebase/auth";
 import axios from "axios";
 import { useCurrentUser } from "hooks/useCurrentUser";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const router = useRouter();
   const currentUser = useCurrentUser();
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(!!currentUser)
   const signUpWithGoogle = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -41,12 +43,17 @@ const Navbar = () => {
   const logout = () => {
     signOut(auth)
       .then(() => {
+        setIsSignedIn(false)
         router.push("/");
       })
       .catch((error) => {
         alert(error);
       });
   };
+
+  useEffect(() => {
+    setIsSignedIn(!!currentUser)
+  }, [currentUser]) 
 
   return (
     <>
@@ -55,8 +62,8 @@ const Navbar = () => {
           <Link href="/">
             <a className="text-xl font-bold px-4 py-2 my-auto">Animedia</a>
           </Link>
-          <div className="flex ml-auto">
-            {currentUser ? (
+          <div className="flex ml-auto px-2">
+            {isSignedIn && currentUser ? (
               <div className="my-auto">
                 <Dropdown
                   arrowIcon={false}

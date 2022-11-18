@@ -8,6 +8,7 @@ type User = {
   updated_at: string
   opinion?: string
   finished_at?: string
+  is_spoiler?: boolean
   watched_animes: AnimeShortInfo[]
   watching_animes: AnimeShortInfo[]
   will_watch_animes: AnimeShortInfo[]

@@ -9,13 +9,13 @@ type InitialProps = { user: User };
 const UserComponent = ({ user }: InitialProps) => {
   return (
     <div className="max-w-6xl m-2 md:mx-auto mb-10">
-      <div className="grid grid-cols-3 gap-4 text-gray-600 ">
+      <div className="grid md:grid-cols-3 gap-4 text-gray-600 ">
         <div className="flex flex-col gap-4">
           <UserProfileImage user={user} />
           <UserFollowingCount user={user} />
           <UserSubscribedAt user={user} />
         </div>
-        <div className="col-span-2 flex flex-col gap-4">
+        <div className="md:col-span-2 flex flex-col gap-4">
           <UserWatchedComments user={user} />
           <AnimeList animes={user.watched_animes} progress="watched" user={user} />
           <AnimeList animes={user.watching_animes} progress="watching" user={user} />

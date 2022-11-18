@@ -25,7 +25,7 @@ const AnimeList = ({ animes, progress, user }: InitialProps) => {
               </Link>
             )}
           </div>
-          <div className="grid grid-cols-5 gap-4 p-4">
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-4 p-4">
             {animes.slice(0 ,10).map((anime) => (
               <div key={anime.public_uid}>
                 <Link href={`/animes/${anime.public_uid}`}>

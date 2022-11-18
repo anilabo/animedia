@@ -8,6 +8,7 @@ import AnimeInformation from "components/Anime/Information";
 import { isNotFoundCode } from "hooks/useNotFound";
 import AnimeSeries from "components/Anime/Series";
 import AnimeWatchedComments from "components/Anime/WatchedComments";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { hash_id } = context.query;
@@ -35,9 +36,15 @@ const AnimeDetailPage: NextPage<InitialProps> = ({ anime }) => {
       : ""
   );
   const [watchedUsers, setWatchedUsers] = useState<User[]>([])
+  const router = useRouter()
+  const { visible_level }  = router.query
 
   useEffect(() => {
-    setWatchedUsers(anime.watched_users)
+    if (visible_level == "only_spoiler") {
+      setWatchedUsers(anime.watched_users.filter((user) => user.is_spoiler))
+    } else if (!visible_level) {
+      setWatchedUsers(anime.watched_users)
+    }
   }, [anime])
 
   return (

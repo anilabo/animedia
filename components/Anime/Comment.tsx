@@ -4,26 +4,36 @@ import { formatDate } from "utils/formatDate";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useCurrentUser } from "hooks/useCurrentUser";
 import axios from "axios";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 type InitialProps = {
   anime: Anime | AnimeShortInfo;
   user: User;
-  setWatchedUsers: Dispatch<SetStateAction<User[]>>;
+  setWatchedObject: Dispatch<SetStateAction<User[]>> | Dispatch<SetStateAction<AnimeShortInfo[]>>;
   opinion: string;
   finishedAt: string;
   visibleAnime: boolean;
+  isSpoiler?: boolean;
 };
 
 const Comment = ({
   anime,
   user,
-  setWatchedUsers,
+  setWatchedObject,
   opinion,
   finishedAt,
   visibleAnime,
+  isSpoiler,
 }: InitialProps) => {
   const currentUser = useCurrentUser();
+  const router = useRouter();
+  const { visible_level } = router.query;
+  const [evasiveness, setEvasiveness] = useState<boolean>(!!isSpoiler && visible_level != "only_spoiler");
+
+  useEffect(()=> {
+    setEvasiveness(!!isSpoiler && visible_level != "only_spoiler")
+  }, [anime])
 
   const handleDelete = async () => {
     const token = await currentUser?.getIdToken();
@@ -36,7 +46,7 @@ const Comment = ({
         }
       )
       .then((res) => {
-        setWatchedUsers(res.data.watched_users);
+        location.reload() // 強制リロード
       });
   };
 
@@ -61,6 +71,11 @@ const Comment = ({
                   {user.display_name}
                 </a>
               </Link>
+              {isSpoiler && (
+                <div className="bg-red-500 rounded flex ml-2">
+                  <p className="text-xs my-auto text-white px-2">SPOILER</p>
+                </div>
+              )}
               {visibleAnime && (
                 <div className="text-xs text-gray-500 my-auto flex">
                   commented on &nbsp;
@@ -74,7 +89,15 @@ const Comment = ({
                 </div>
               )}
             </div>
-            <p className="text-gray-600">{opinion}</p>
+            <p
+              className={`${
+                evasiveness
+                  ? "text-gray-100 hover:text-gray-600 "
+                  : "text-gray-600"
+              }`}
+            >
+              {opinion}
+            </p>
             <div className="flex gap-2 text-gray-600 mt-1">
               <button className="border rounded px-4 py-1 text-xs hover:bg-green-500 hover:text-white">
                 Nice!

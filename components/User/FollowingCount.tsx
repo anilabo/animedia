@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface InitialProps {
@@ -19,14 +20,22 @@ const UserFollowingCount = ({ user }: InitialProps) => {
 
   return (
     <div className="rounded border grid grid-cols-2 text-sm divide-x">
-      <p className="w-full py-2 m-auto text-center">
-        <b className="font-semibold text-green-500 text-md">{followingCount}</b>{" "}
-        Following
-      </p>
-      <p className="w-full py-2 m-auto text-center">
-        <b className="font-semibold text-green-500 text-md">{followerCount}</b>{" "}
-        Followed
-      </p>
+      <Link href={`/users/${user.uid}/followings`}>
+        <a className="w-full py-2 m-auto text-center">
+          <b className="font-semibold text-green-500 text-md">
+            {followingCount}
+          </b>{" "}
+          Following
+        </a>
+      </Link>
+      <Link href={`/users/${user.uid}/followers`}>
+        <a className="w-full py-2 m-auto text-center">
+          <b className="font-semibold text-green-500 text-md">
+            {followerCount}
+          </b>{" "}
+          Follower
+        </a>
+      </Link>
     </div>
   );
 };

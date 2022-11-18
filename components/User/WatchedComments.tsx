@@ -6,7 +6,7 @@ interface InitialProps {
 }
 
 const UserWatchedComments = ({ user }: InitialProps) => {
-  const [watchedUsers, setWatchedUsers] = useState<User[]>([]);
+  const [watchedAnimes, setWatchedAnimes] = useState<AnimeShortInfo[]>(user.watched_animes)
 
   return (
     <>
@@ -20,7 +20,7 @@ const UserWatchedComments = ({ user }: InitialProps) => {
               <Comment
                 anime={anime}
                 user={user}
-                setWatchedUsers={setWatchedUsers}
+                setWatchedObject={setWatchedAnimes}
                 opinion={anime.opinion as string}
                 finishedAt={anime.finished_at as string}
                 visibleAnime={true}

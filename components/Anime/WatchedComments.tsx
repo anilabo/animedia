@@ -48,7 +48,7 @@ const AnimeWatchedComments = ({
               <Comment
                 anime={anime}
                 user={user}
-                setWatchedUsers={setWatchedUsers}
+                setWatchedObject={setWatchedUsers}
                 opinion={user.opinion as string}
                 finishedAt={user.finished_at as string}
                 visibleAnime={false}

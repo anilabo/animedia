@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 type InitialProps = {
   anime: Anime | AnimeShortInfo;
   user: User;
-  setWatchedUsers: Dispatch<SetStateAction<User[]>>;
+  setWatchedObject: Dispatch<SetStateAction<User[]>> | Dispatch<SetStateAction<AnimeShortInfo[]>>;
   opinion: string;
   finishedAt: string;
   visibleAnime: boolean;
@@ -20,7 +20,7 @@ type InitialProps = {
 const Comment = ({
   anime,
   user,
-  setWatchedUsers,
+  setWatchedObject,
   opinion,
   finishedAt,
   visibleAnime,
@@ -46,7 +46,7 @@ const Comment = ({
         }
       )
       .then((res) => {
-        setWatchedUsers(res.data.watched_users);
+        location.reload() // 強制リロード
       });
   };
 

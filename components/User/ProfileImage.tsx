@@ -10,6 +10,7 @@ interface InitialProps {
 const UserProfileImage = ({ user }: InitialProps) => {
   const currentUser = useCurrentUser();
   const [isFollowing, setIsFollowings] = useState<boolean>(false);
+  const [visibleFollowButton, setVisibleFollowButton] = useState<boolean>(false)
   const follow = async () => {
     const token = await currentUser?.getIdToken();
     const params = {
@@ -37,7 +38,8 @@ const UserProfileImage = ({ user }: InitialProps) => {
     setIsFollowings(
       !!user.followers.filter((user) => user.uid == currentUser?.uid)[0]
     );
-  }, [currentUser]);
+    setVisibleFollowButton(!!currentUser && currentUser.uid != user.uid)
+  }, [currentUser, user]);
 
   return (
     <div className="rounded border p-4 flex flex-col gap-4 h-fit">
@@ -50,20 +52,24 @@ const UserProfileImage = ({ user }: InitialProps) => {
           height={500}
         />
       </div>
-      {isFollowing ? (
-        <button
-          className="rounded border bg-green-500 text-white w-40 hover:bg-green-600 mx-auto py-1"
-          onClick={() => unfollow()}
-        >
-          unfollow
-        </button>
-      ) : (
-        <button
-          className="rounded border hover:bg-green-500 hover:text-white w-40 mx-auto py-1"
-          onClick={() => follow()}
-        >
-          follow
-        </button>
+      {visibleFollowButton && (
+        <>
+          {isFollowing ? (
+            <button
+              className="rounded border bg-green-500 text-white w-40 hover:bg-green-600 mx-auto py-1"
+              onClick={() => unfollow()}
+            >
+              unfollow
+            </button>
+          ) : (
+            <button
+              className="rounded border hover:bg-green-500 hover:text-white w-40 mx-auto py-1"
+              onClick={() => follow()}
+            >
+              follow
+            </button>
+          )}
+        </>
       )}
     </div>
   );

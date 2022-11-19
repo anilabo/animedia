@@ -1,8 +1,9 @@
+import { memo } from "react";
 import { FaRegComment } from "react-icons/fa";
 
 type InitialProps = { anime: Anime };
 
-const AnimeMyCommentsLink = ({ anime }: InitialProps) => {
+const AnimeMyCommentsLink = memo(({ anime }: InitialProps) => {
   return (
     <>
       <div className="bg-gray-100 p-2">
@@ -18,6 +19,6 @@ const AnimeMyCommentsLink = ({ anime }: InitialProps) => {
       </div>
     </>
   );
-};
+});
 
 export default AnimeMyCommentsLink;

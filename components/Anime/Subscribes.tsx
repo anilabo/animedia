@@ -2,7 +2,7 @@ import { BiListCheck } from "react-icons/bi";
 import { ImEye } from "react-icons/im";
 import { FaSearchPlus } from "react-icons/fa";
 import Modal from "react-modal";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, memo } from "react";
 import { customStyles } from "utils/modalStyle";
 import AnimeOpinionFormModal from "./OpinionFormModal";
 import { useCreateWatchLog } from "hooks/useCreateWatchLog";
@@ -16,7 +16,7 @@ interface InitialProps {
   setWatchedUsers: Dispatch<SetStateAction<User[]>>;
 }
 
-const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
+const AnimeSubscribes = memo(({ anime, setWatchedUsers }: InitialProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const currentUser = useCurrentUser()
   const router = useRouter()
@@ -116,6 +116,6 @@ const AnimeSubscribes = ({ anime, setWatchedUsers }: InitialProps) => {
       </div>
     </>
   );
-};
+});
 
 export default AnimeSubscribes;

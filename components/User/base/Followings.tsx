@@ -16,7 +16,7 @@ const UserFollowingsComponent = ({ user }: InitialProps) => (
         <UserSubscribedAt user={user} />
       </div>
       <div className="md:col-span-2 flex flex-col gap-4">
-        <UserFollow user={user} target_users={user.followings} />
+        <UserFollow target="followings" target_users={user.followings} />
       </div>
     </div>
   </div>

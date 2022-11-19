@@ -1,18 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 
-type InitialProps = { user: User; target_users: UserShortInfo[] };
+type InitialProps = { target: "followers" | "followings"; target_users: UserShortInfo[] };
 
-const UserFollow = ({ user, target_users }: InitialProps) => {
+const UserFollow = ({ target, target_users }: InitialProps) => {
   return (
-    <div className="border rounded">
+    <div className="border rounded flex flex-col">
       <div className="border-b flex gap-2 px-4 py-2">
-        <p className="text-gray-600 font-semibold">Followers</p>
+        <p className="text-gray-600 font-semibold">{ target }</p>
         <p className="my-auto text-white bg-green-500 h-fit w-fit px-2 rounded-full">
           {target_users.length}
         </p>
       </div>
-      {target_users.map((follower, index) => (
+      { target_users[0] ? (
+        <>
+        {target_users.map((follower, index) => (
         <div key={follower.uid}>
           <Link href={`/users/${follower.uid}`}>
             <a className="flex gap-2 hover:bg-green-100">
@@ -32,6 +34,11 @@ const UserFollow = ({ user, target_users }: InitialProps) => {
           {target_users.length != index + 1 && <hr />}
         </div>
       ))}
+        </>
+      ) :(
+        <p className="text-gray-400 mx-auto py-2">There are no users.</p>
+      )}
+      
     </div>
   );
 };

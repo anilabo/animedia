@@ -17,9 +17,9 @@ const UserComponent = ({ user }: InitialProps) => {
         </div>
         <div className="md:col-span-2 flex flex-col gap-4">
           <UserWatchedComments user={user} />
-          <AnimeList animes={user.watched_animes} progress="watched" user={user} />
-          <AnimeList animes={user.watching_animes} progress="watching" user={user} />
-          <AnimeList animes={user.will_watch_animes} progress="will_watch" user={user} />
+          <AnimeList animes={user.watched_animes} progress="watched" user={user} limit={10} />
+          <AnimeList animes={user.watching_animes} progress="watching" user={user} limit={10} />
+          <AnimeList animes={user.will_watch_animes} progress="will_watch" user={user} limit={10} />
         </div>
       </div>
     </div>

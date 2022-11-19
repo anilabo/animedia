@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { memo } from "react";
 
 interface InitialProps {
   anime: Anime;
 }
 
-const AnimeSeries = ({ anime }: InitialProps) => {
+const AnimeSeries = memo(({ anime }: InitialProps) => {
   return (
     <>
       <div className="bg-gray-100 p-2">
@@ -28,6 +29,6 @@ const AnimeSeries = ({ anime }: InitialProps) => {
       </div>
     </>
   );
-};
+});
 
 export default AnimeSeries;

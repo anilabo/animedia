@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { memo } from "react";
 import { FaTwitter } from "react-icons/fa";
 
 interface InitialProps {
   anime: Anime;
 }
 
-const AnimeThumbnailCard = ({ anime }: InitialProps) => {
+const AnimeThumbnailCard = memo(({ anime }: InitialProps) => {
   return (
     <div className="p-6 flex flex-col gap-4">
       <Link href={anime.public_url}>
@@ -45,6 +46,6 @@ const AnimeThumbnailCard = ({ anime }: InitialProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default AnimeThumbnailCard;

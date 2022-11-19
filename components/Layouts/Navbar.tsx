@@ -6,9 +6,9 @@ import { Avatar, Dropdown } from "flowbite-react";
 import { signOut } from "firebase/auth";
 import axios from "axios";
 import { useCurrentUser } from "hooks/useCurrentUser";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 
-const Navbar = () => {
+const Navbar = memo(() => {
   const router = useRouter();
   const currentUser = useCurrentUser();
   const [isSignedIn, setIsSignedIn] = useState<boolean>(!!currentUser)
@@ -107,6 +107,6 @@ const Navbar = () => {
       </div>
     </>
   );
-};
+});
 
 export default Navbar;

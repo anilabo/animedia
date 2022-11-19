@@ -21,7 +21,7 @@ const UserFollowingCount = ({ user }: InitialProps) => {
   return (
     <div className="rounded border grid grid-cols-2 text-sm divide-x">
       <Link href={`/users/${user.uid}/followings`}>
-        <a className="w-full py-2 m-auto text-center">
+        <a className="w-full py-2 m-auto text-center hover:bg-green-100">
           <b className="font-semibold text-green-500 text-md">
             {followingCount}
           </b>{" "}
@@ -29,7 +29,7 @@ const UserFollowingCount = ({ user }: InitialProps) => {
         </a>
       </Link>
       <Link href={`/users/${user.uid}/followers`}>
-        <a className="w-full py-2 m-auto text-center">
+        <a className="w-full py-2 m-auto text-center hover:bg-green-100">
           <b className="font-semibold text-green-500 text-md">
             {followerCount}
           </b>{" "}

@@ -4,9 +4,10 @@ import { useState } from "react";
 
 interface InitialProps {
   user: User;
+  limit: number
 }
 
-const UserWatchedComments = ({ user }: InitialProps) => {
+const UserWatchedComments = ({ user, limit }: InitialProps) => {
   const [watchedAnimes, setWatchedAnimes] = useState<AnimeShortInfo[]>(
     user.watched_animes
   );
@@ -19,7 +20,7 @@ const UserWatchedComments = ({ user }: InitialProps) => {
         </div>
         {user.watched_animes[0] ? (
           <>
-            {user.watched_animes.slice(0, 6).map((anime) => (
+            {user.watched_animes.slice(0, limit).map((anime) => (
               <Comment
                 anime={anime}
                 user={user}
@@ -35,7 +36,7 @@ const UserWatchedComments = ({ user }: InitialProps) => {
         ) : (
           <p className="text-gray-600 mx-auto py-8">There is no comments.</p>
         )}
-        {user.watched_animes.length > 6 && (
+        {user.watched_animes.length > limit && (
           <Link href={`/users/${user.uid}/comments`}>
             <a className="text-xs text-gray-400 py-2 px-4 ml-auto hover:underline">
               {"> Check all comments"}

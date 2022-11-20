@@ -46,9 +46,11 @@ const UserActivityLists = ({ user }: InitialProps) => {
                   activity.action == "watching" ||
                   activity.action == "opinion") && (
                   <>
-                    <p className="text-gray-600">
-                      {activity.watch_log?.opinion}
-                    </p>
+                    {activity.action == "opinion" && (
+                      <p className="text-gray-600">
+                        {activity.watch_log?.opinion}
+                      </p>
+                    )}
                     <Link href={`/animes/${activity.anime.public_uid}`}>
                       <a className="rounded border px-4 py-1 bg-gray-50 hover:bg-gray-100 flex gap-8">
                         <div className="w-28 flex flex-col">

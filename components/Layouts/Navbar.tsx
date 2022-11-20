@@ -37,9 +37,6 @@ const Navbar = memo(() => {
       alert(error);
     }
   };
-  const goToMyPage = () => {
-    router.push(`/users/${currentUser?.uid}`)
-  }
   const logout = () => {
     signOut(auth)
       .then(() => {
@@ -84,8 +81,8 @@ const Navbar = memo(() => {
                       {currentUser.email}
                     </span>
                   </Dropdown.Header>
-                  <Dropdown.Item onClick={() => goToMyPage()}>MyPage</Dropdown.Item>
-                  <Dropdown.Item>Settings</Dropdown.Item>
+                  <Dropdown.Item onClick={() => router.push(`/users/${currentUser.uid}`)}>MyPage</Dropdown.Item>
+                  <Dropdown.Item onClick={() => router.push(`/users/${currentUser.uid}/recent_activity`)}>Recent activity</Dropdown.Item>
                   <Dropdown.Item>Earnings</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={() => logout()}>

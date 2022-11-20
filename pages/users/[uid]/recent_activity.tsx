@@ -26,7 +26,7 @@ type InitialProps = { user: User }
 
 const RecentActivityPage: NextPage<InitialProps> = ({ user }) => {
 
-  return <UserRecentActivityComponent activities={user.active_notifications} />;
+  return <UserRecentActivityComponent user={user} activities={user.active_notifications} />;
 };
 
 export default RecentActivityPage;

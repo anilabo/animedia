@@ -1,18 +1,27 @@
-import ActivityDescription from "components/Layouts/ActivityDescription";
 
-type InitialProps = { activities: Activity[] };
+import UserFollowingCount from "../FollowingCount";
+import UserProfileImage from "../ProfileImage";
+import UserSubscribedAt from "../SubscribedAt";
+import UserActivityLists from "../ActivityLists";
 
-const UserRecentActivityComponent = ({ activities }: InitialProps) => {
+type InitialProps = { user: User; activities: Activity[] };
 
-  return (
-    <>
-      {activities.map((activity) => (
-        <div key={activity.id}>
-          <ActivityDescription activity={activity} />
+const UserRecentActivityComponent = ({ user, activities }: InitialProps) => (
+  <>
+    <div className="max-w-6xl m-2 md:mx-auto mb-10">
+      <div className="grid md:grid-cols-3 gap-4 text-gray-600 ">
+        <div className="flex flex-col gap-4">
+          {/* 変えたい */}
+          <UserProfileImage user={user} />
+          <UserFollowingCount user={user} />
+          <UserSubscribedAt user={user} />
         </div>
-      ))}
-    </>
-  );
-};
+        <div className="md:col-span-2 flex flex-col gap-4">
+          <UserActivityLists user={user} />
+        </div>
+      </div>
+    </div>
+  </>
+);
 
 export default UserRecentActivityComponent;

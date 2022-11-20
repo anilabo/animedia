@@ -8,11 +8,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_ANILABO_URL}/users/${uid}/notifications`
+      `${process.env.NEXT_PUBLIC_ANILABO_URL}/users/${uid}`
     );
-    const activities = await res.data;
+    const user = await res.data;
     return {
-      props: { activities },
+      props: { user },
     };
   } catch (error) {
     return {
@@ -22,10 +22,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-type InitialProps = { activities: Activity[] }
+type InitialProps = { user: User }
 
-const RecentActivityPage: NextPage<InitialProps> = ({ activities }) => {
-  return <UserRecentActivityComponent activities={activities} />;
+const RecentActivityPage: NextPage<InitialProps> = ({ user }) => {
+
+  return <UserRecentActivityComponent activities={user.active_notifications} />;
 };
 
 export default RecentActivityPage;

@@ -1,3 +1,4 @@
+// 本当は Notification にしたいが、TSのライブラリと被ったので、使えなかった
 type Activity = {
   id: number
   operative_user: UserShortInfo

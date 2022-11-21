@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ActivityDescription from "components/Layouts/ActivityDescription";
+import { formatDate } from "utils/formatDate";
 
 type InitialProps = { user: User };
 
@@ -23,7 +24,17 @@ const UserActivityLists = ({ user }: InitialProps) => {
                 />
               </div>
               <div className="w-full flex flex-col gap-2">
-                <ActivityDescription activity={activity} />
+                <div className="flex">
+                  <ActivityDescription activity={activity} />
+                  { activity.action == "opinion" && activity.watch_log?.is_spoiler && (
+                    <div className="bg-red-500 rounded flex ml-2">
+                      <p className="text-xs my-auto text-white px-2">SPOILER</p>
+                    </div>
+                  )}
+                  <p className="ml-auto text-xs text-gray-400 my-auto">
+                    {formatDate(activity.created_at)}
+                  </p>
+                </div>
                 {(activity.action == "follow" ||
                   activity.action == "followed") && (
                   <Link href={`/users/${activity.passive_user.uid}`}>
@@ -48,16 +59,15 @@ const UserActivityLists = ({ user }: InitialProps) => {
                   <>
                     {activity.action == "opinion" && (
                       <div className="flex">
-                        <p className={`${activity.watch_log?.is_spoiler ? 'text-gray-100 hover:text-gray-600': 'text-gray-600'}`}>
+                        <p
+                          className={`${
+                            activity.watch_log?.is_spoiler
+                              ? "text-gray-100 hover:text-gray-600"
+                              : "text-gray-600"
+                          }`}
+                        >
                           {activity.watch_log?.opinion}
                         </p>
-                        {activity.watch_log?.is_spoiler && (
-                          <div className="bg-red-500 rounded flex ml-2">
-                            <p className="text-xs my-auto text-white px-2">
-                              SPOILER
-                            </p>
-                          </div>
-                        )}
                       </div>
                     )}
                     <Link href={`/animes/${activity.anime.public_uid}`}>

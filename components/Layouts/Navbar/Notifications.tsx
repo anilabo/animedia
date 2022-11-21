@@ -5,6 +5,7 @@ import { firebase } from "lib/Firebase";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ActivityDescription from "../ActivityDescription";
+import Link from "next/link";
 
 type InitialProps = { currentUser: firebase.User };
 
@@ -19,7 +20,7 @@ const NavbarNotifications = ({ currentUser }: InitialProps) => {
         setNotifications(res.data.passive_notifications);
       })
       .catch((error) => {
-        setNotifications([])
+        setNotifications([]);
       });
   };
 
@@ -35,25 +36,27 @@ const NavbarNotifications = ({ currentUser }: InitialProps) => {
       inline={true}
       label={<AiFillBell className="text-3xl m-1 text-gray-700" />}
     >
-      { notifications[0] ? (
+      {notifications[0] ? (
         <>
-      {notifications.map((notification) => (
-        <Dropdown.Item key={notification.id}>
-          <div className="flex gap-2">
-            <Image
-              src={notification.operative_user.photo_url}
-              className="rounded-full"
-              width={30}
-              height={30}
-            />
-            <div className="my-auto">
-              <ActivityDescription activity={notification} />
-            </div>
-          </div>
-        </Dropdown.Item>
-      ))}
+          {notifications.map((notification) => (
+            <Dropdown.Item key={notification.id}>
+              <Link href={`/notifications`}>
+                <a className="flex gap-2">
+                  <Image
+                    src={notification.operative_user.photo_url}
+                    className="rounded-full"
+                    width={30}
+                    height={30}
+                  />
+                  <div className="my-auto">
+                    <ActivityDescription activity={notification} />
+                  </div>
+                </a>
+              </Link>
+            </Dropdown.Item>
+          ))}
         </>
-      ): (
+      ) : (
         <Dropdown.Item>There are no notifications.</Dropdown.Item>
       )}
     </Dropdown>

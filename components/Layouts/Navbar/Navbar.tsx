@@ -52,7 +52,7 @@ const Navbar = memo(() => {
           <div className="flex ml-auto px-2">
             {isSignedIn && currentUser ? (
               <div className="my-auto flex gap-2">
-                <NavbarNotifications />
+                <NavbarNotifications currentUser={currentUser} />
                 <NavbarLoggedInUserIcon
                   currentUser={currentUser}
                   setIsSignedIn={setIsSignedIn}

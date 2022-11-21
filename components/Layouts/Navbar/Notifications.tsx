@@ -16,7 +16,10 @@ const NavbarNotifications = ({ currentUser }: InitialProps) => {
     axios
       .get(`${process.env.NEXT_PUBLIC_ANILABO_URL}/users/${uid}`)
       .then((res) => {
-        setNotifications(res.data.passive_notifications.filter((notification: Activity) => notification.checked == false));
+        setNotifications(res.data.passive_notifications);
+      })
+      .catch((error) => {
+        setNotifications([])
       });
   };
 

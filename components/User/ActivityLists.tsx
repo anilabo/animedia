@@ -35,8 +35,7 @@ const UserActivityLists = ({ user }: InitialProps) => {
                     {formatDate(activity.created_at)}
                   </p>
                 </div>
-                {(activity.action == "follow" ||
-                  activity.action == "followed") && (
+                {activity.action == "follow" && (
                   <Link href={`/users/${activity.passive_user.uid}`}>
                     <a className="rounded border px-4 py-2 bg-gray-50 hover:bg-gray-100 flex gap-4">
                       <div className="h-12 w-12">

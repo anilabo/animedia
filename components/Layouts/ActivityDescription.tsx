@@ -29,15 +29,6 @@ const ActivityDescription = memo(({ activity }: InitialProps) => {
     case "follow":
       description = <>followed {target()}</>;
       break;
-    case "followed":
-      description = (
-        <>
-          {!!currentUser ? "are " : "is "}
-          followed by
-          {target()}
-        </>
-      );
-      break;
     case "will_watch":
       description = (
         <>

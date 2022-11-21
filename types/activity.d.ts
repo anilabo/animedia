@@ -5,7 +5,7 @@ type Activity = {
   passive_user: UserShortInfo
   anime: Anime
   watch_log?: WatchLog
-  action: 'follow' | 'followed' | 'will_watch' | 'watching' | 'opinion'
+  action: 'follow' | 'will_watch' | 'watching' | 'opinion'
   checked: boolean
   created_at: string
   updated_at: string

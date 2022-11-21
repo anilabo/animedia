@@ -47,9 +47,18 @@ const UserActivityLists = ({ user }: InitialProps) => {
                   activity.action == "opinion") && (
                   <>
                     {activity.action == "opinion" && (
-                      <p className="text-gray-600">
-                        {activity.watch_log?.opinion}
-                      </p>
+                      <div className="flex">
+                        <p className={`${activity.watch_log?.is_spoiler ? 'text-gray-100 hover:text-gray-600': 'text-gray-600'}`}>
+                          {activity.watch_log?.opinion}
+                        </p>
+                        {activity.watch_log?.is_spoiler && (
+                          <div className="bg-red-500 rounded flex ml-2">
+                            <p className="text-xs my-auto text-white px-2">
+                              SPOILER
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     )}
                     <Link href={`/animes/${activity.anime.public_uid}`}>
                       <a className="rounded border px-4 py-1 bg-gray-50 hover:bg-gray-100 flex gap-8">

@@ -1,14 +1,14 @@
 import { auth, firebase } from "lib/Firebase";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import NavbarItems from "./NavbarItems";
-import { Avatar, Dropdown } from "flowbite-react";
-import { signOut } from "firebase/auth";
+import NavbarItems from "./Items";
+import { Dropdown } from "flowbite-react";
 import axios from "axios";
 import { useCurrentUser } from "hooks/useCurrentUser";
 import { useEffect, useState, memo } from "react";
 import { AiFillBell } from "react-icons/ai";
 import Image from "next/image";
+import NavbarLoggedInUserIcon from "./LoggedInUserIcon";
 
 const Navbar = memo(() => {
   const router = useRouter();
@@ -38,16 +38,6 @@ const Navbar = memo(() => {
     } catch (error) {
       alert(error);
     }
-  };
-  const logout = () => {
-    signOut(auth)
-      .then(() => {
-        setIsSignedIn(false);
-        router.push("/");
-      })
-      .catch((error) => {
-        alert(error);
-      });
   };
 
   useEffect(() => {
@@ -83,43 +73,7 @@ const Navbar = memo(() => {
                     </div>
                   </Dropdown.Item>
                 </Dropdown>
-                <Dropdown
-                  arrowIcon={false}
-                  inline={true}
-                  label={
-                    <Avatar
-                      alt="User settings"
-                      img={`${currentUser.photoURL}`}
-                      rounded={true}
-                    />
-                  }
-                >
-                  <Dropdown.Header>
-                    <span className="block text-sm">
-                      {currentUser.displayName}
-                    </span>
-                    <span className="block truncate text-sm font-medium">
-                      {currentUser.email}
-                    </span>
-                  </Dropdown.Header>
-                  <Dropdown.Item
-                    onClick={() => router.push(`/users/${currentUser.uid}`)}
-                  >
-                    MyPage
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() =>
-                      router.push(`/users/${currentUser.uid}/recent_activity`)
-                    }
-                  >
-                    Recent activity
-                  </Dropdown.Item>
-                  <Dropdown.Item>Earnings</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={() => logout()}>
-                    Sign out
-                  </Dropdown.Item>
-                </Dropdown>
+                <NavbarLoggedInUserIcon currentUser={currentUser} setIsSignedIn={setIsSignedIn} />
               </div>
             ) : (
               <button

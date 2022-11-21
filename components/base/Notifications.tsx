@@ -21,14 +21,26 @@ const NotificationsComponent = () => {
 
   return (
     <>
-      {!!currentUser ? (
+      {!!currentUser && user ? (
         <div className="max-w-6xl m-2 md:mx-auto mb-10">
           <div className="grid md:grid-cols-3 gap-4 text-gray-600 ">
             <div className="flex flex-col gap-4">
-              <div className="h-80 bg-red-500">ニュースを表示</div>
+              <div className="rounded border flex">
+                <p className="py-4 mx-auto">
+                  There are{" "}
+                  <b className="font-semibold">
+                    {user.passive_notifications.length}
+                  </b>{" "}
+                  unread notifications.
+                </p>
+              </div>
             </div>
             <div className="md:col-span-2 flex flex-col gap-4">
-              {user && <UserActivityLists user={user} headline={'Notifications'} lists={user.passive_notifications} />}
+              <UserActivityLists
+                user={user}
+                headline={"Notifications"}
+                lists={user.passive_notifications}
+              />
             </div>
           </div>
         </div>

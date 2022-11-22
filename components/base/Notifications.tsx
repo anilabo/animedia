@@ -37,7 +37,6 @@ const NotificationsComponent = () => {
             </div>
             <div className="md:col-span-2 flex flex-col gap-4">
               <UserActivityLists
-                user={user}
                 headline={"Notifications"}
                 lists={user.passive_notifications}
               />

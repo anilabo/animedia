@@ -1,6 +1,5 @@
 import axios from "axios";
-import ActivityDescription from "components/Layouts/ActivityDescription";
-import { getIdToken } from "firebase/auth";
+import UserActivityLists from "components/User/ActivityLists";
 import { useCurrentUser } from "hooks/useCurrentUser";
 import { useEffect, useState } from "react";
 
@@ -28,12 +27,7 @@ const IndexComponent = () => {
 
   return (
     <>
-      {notifications.map((notification) => (
-        <div key={notification.id}>
-          <ActivityDescription activity={notification} />
-          
-        </div>
-      ))}
+      <UserActivityLists headline="Time Line" lists={notifications} />
     </>
   );
 };

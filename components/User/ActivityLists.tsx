@@ -3,9 +3,9 @@ import Link from "next/link";
 import ActivityDescription from "components/Layouts/ActivityDescription";
 import { formatDate } from "utils/formatDate";
 
-type InitialProps = { user: User; headline: string; lists: Activity[] };
+type InitialProps = { headline: string; lists: Activity[] };
 
-const UserActivityLists = ({ user, headline, lists }: InitialProps) => {
+const UserActivityLists = ({ headline, lists }: InitialProps) => {
   return (
     <div className="rounded border">
       <div className="px-4 py-2 border-b font-semibold text-gray-600">

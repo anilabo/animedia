@@ -1,11 +1,10 @@
+import IndexComponent from "components/base/Index";
 import { NextPage } from "next";
 
-const Home: NextPage = () => {
+const IndexPage: NextPage = () => {
   return (
-    <>
-      <h1>Hello, my wor</h1>
-    </>
+    <IndexComponent />
   )
 }
 
-export default Home
+export default IndexPage

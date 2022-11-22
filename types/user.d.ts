@@ -14,6 +14,8 @@ type User = {
   will_watch_animes: AnimeShortInfo[]
   followings: UserShortInfo[]
   followers: UserShortInfo[]
+  active_notifications: Activity[]
+  passive_notifications: Activity[]
 }
 
 type UserShortInfo = {

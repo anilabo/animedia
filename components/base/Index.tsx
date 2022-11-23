@@ -27,7 +27,17 @@ const IndexComponent = () => {
 
   return (
     <>
-      <UserActivityLists headline="Time Line" lists={notifications} />
+      
+      <div className="max-w-6xl m-2 md:mx-auto mb-10">
+        <div className="grid md:grid-cols-3 gap-4 text-gray-600 ">
+          <div className="flex flex-col gap-4">
+            <p>アニメディアへようこそ！</p>
+          </div>
+          <div className="md:col-span-2 flex flex-col gap-4">
+            <UserActivityLists headline="Time Line" lists={notifications} />
+          </div>
+        </div>
+      </div>
     </>
   );
 };

@@ -7,6 +7,7 @@ import { useCurrentUser } from "hooks/useCurrentUser";
 import { useEffect, useState, memo } from "react";
 import NavbarLoggedInUserIcon from "./LoggedInUserIcon";
 import NavbarNotifications from "./Notifications";
+import { signOut } from "firebase/auth";
 
 const Navbar = memo(() => {
   const router = useRouter();
@@ -29,12 +30,18 @@ const Navbar = memo(() => {
               .post(`${process.env.NEXT_PUBLIC_ANILABO_URL}/users`, params)
               .then(() => {
                 router.push("/");
+              })
+              .catch((error) => {
+                alert(error)
+                signOut(auth)
+                setIsSignedIn(false)
               });
           }
         })
-        .catch(alert);
     } catch (error) {
       alert(error);
+      signOut(auth)
+      setIsSignedIn(false)
     }
   };
 

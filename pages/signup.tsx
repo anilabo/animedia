@@ -6,14 +6,6 @@ import { firebase, auth } from "lib/Firebase";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      console.log("ユーザーログインしてる？");
-      console.log(!!user);
-    });
-  }, []);
-
   const signUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {

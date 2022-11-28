@@ -17,7 +17,7 @@ const UserRecentActivityComponent = ({ user }: InitialProps) => (
           <UserSubscribedAt user={user} />
         </div>
         <div className="md:col-span-2 flex flex-col gap-4">
-          <UserActivityLists user={user} headline={'Recent Activities'} lists={user.active_notifications} />
+          <UserActivityLists headline={'Recent Activities'} lists={user.active_notifications} />
         </div>
       </div>
     </div>

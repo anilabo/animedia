@@ -45,7 +45,11 @@ const NavbarLoggedInUserIcon = ({ currentUser, setIsSignedIn }: InitialProps) =>
       >
         Recent activity
       </Dropdown.Item>
-      <Dropdown.Item>Earnings</Dropdown.Item>
+      <Dropdown.Item
+        onClick={() => router.push(`/users/edit`)}
+      >
+        Edit Profile
+      </Dropdown.Item>
       <Dropdown.Divider />
       <Dropdown.Item onClick={() => logout()}>Sign out</Dropdown.Item>
     </Dropdown>

@@ -2,9 +2,11 @@ import axios from "axios";
 import { useCurrentUser } from "hooks/useCurrentUser";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const UserEditComponent = () => {
   const currentUser = useCurrentUser();
+  const router = useRouter()
   const initial_value = {
     id: 0,
     display_name: "",
@@ -15,8 +17,19 @@ const UserEditComponent = () => {
     updated_at: "",
   };
   const [user, setUser] = useState<UserShortInfo>(initial_value);
-  const handleSubmit = () => {
-    console.log("hogeohge");
+  const [displayName, setDisplayName] = useState<string>(
+    currentUser?.displayName as string
+  );
+  const handleSubmit = async () => {
+    if (currentUser) {
+      const token = await currentUser.getIdToken();
+      axios({
+        method: "patch",
+        url: `${process.env.NEXT_PUBLIC_ANILABO_URL}/users/${currentUser.uid}`,
+        headers: { Authorization: `Bearer ${token}` },
+        data: { user: { display_name: displayName } },
+      }).then((res) => router.push(`/users/${res.data.uid}`));
+    }
   };
 
   useEffect(() => {
@@ -46,6 +59,7 @@ const UserEditComponent = () => {
                   type="text"
                   className="border-gray-300 rounded bg-gray-50 w-full"
                   defaultValue={user.display_name}
+                  onChange={(e) => setDisplayName(e.target.value)}
                 />
               </div>
               <div className="flex gap-10">

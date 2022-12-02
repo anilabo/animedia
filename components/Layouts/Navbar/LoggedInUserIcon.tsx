@@ -2,6 +2,7 @@ import { signOut } from "firebase/auth";
 import { Avatar, Dropdown } from "flowbite-react";
 import { firebase, auth } from "lib/Firebase";
 import { useRouter } from "next/router";
+import { destroyCookie } from "nookies";
 import { Dispatch, SetStateAction } from "react";
 
 type InitialProps = { currentUser: firebase.User, setIsSignedIn: Dispatch<SetStateAction<boolean>> };
@@ -12,11 +13,12 @@ const NavbarLoggedInUserIcon = ({ currentUser, setIsSignedIn }: InitialProps) =>
     signOut(auth)
       .then(() => {
         setIsSignedIn(false);
-        router.push("/");
+        router.reload();
       })
       .catch((error) => {
         alert(error);
       });
+    destroyCookie(null, 'uid')
   };
   
   return (

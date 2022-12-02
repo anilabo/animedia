@@ -11,14 +11,14 @@ const NavbarLoggedInUserIcon = ({ currentUser, setIsSignedIn }: InitialProps) =>
   const router = useRouter()
   const logout = () => {
     signOut(auth)
-      .then(() => {
+      .then(async () => {
         setIsSignedIn(false);
-        router.reload();
+        await destroyCookie(null, 'uid')
+        await router.reload();
       })
       .catch((error) => {
         alert(error);
       });
-    destroyCookie(null, 'uid')
   };
   
   return (

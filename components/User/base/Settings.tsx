@@ -1,6 +1,7 @@
 import Image from "next/image";
 
-const UserSettingsComponent = () => {
+type InitialProps = { user: User };
+const UserSettingsComponent = ({ user }: InitialProps) => {
   return (
     <>
       <div className="md:flex max-w-6xl mx-auto">
@@ -23,8 +24,8 @@ const UserSettingsComponent = () => {
                 </div>
 
                 <div className="mt-4">
-                  <h5 className="text-lg font-semibold">higakijin</h5>
-                  <p className="text-slate-400">hm385.chejptks@gmail.com</p>
+                  <h5 className="text-lg font-semibold">{ user.display_name }</h5>
+                  <p className="text-slate-400">{ user.email }</p>
                 </div>
               </div>
             </div>

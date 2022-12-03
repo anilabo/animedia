@@ -17,10 +17,10 @@ const NavbarLoggedInUserIcon = ({
   const router = useRouter();
   const logout = () => {
     signOut(auth)
-      .then(async () => {
+      .then(() => {
         setIsSignedIn(false);
         destroyCookie(null, "uid");
-        location.replace(`/`)
+        location.replace('/')
       })
       .catch((error) => {
         alert(error);

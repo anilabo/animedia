@@ -1,31 +1,25 @@
-import axios from "axios";
 import UserSettingsComponent from "components/User/base/Settings";
-import { isNotFoundCode } from "hooks/useNotFound";
-import { GetServerSideProps, NextPage } from "next";
-import nookies from "nookies";
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = nookies.get(context);
-  try {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_ANILABO_URL}/users/${cookies.uid}`
-    );
-    const user = await res.data;
-    return {
-      props: { user },
-    };
-  } catch (error) {
-    return {
-      props: {},
-      notFound: isNotFoundCode(error),
-    };
-  }
-};
+import { NextPage } from "next";
+import { parseCookies } from "nookies";
 
 type InitialProps = { user: User };
 
 const UserSettingsPage: NextPage<InitialProps> = ({ user }) => {
   return <UserSettingsComponent user={user} />;
+};
+
+// SSRだとブラウザバック時にcookieが空になる現象がおきるので、getInitialPropsで回避
+UserSettingsPage.getInitialProps = async (context) => {
+  const cookie = parseCookies(context)
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_ANILABO_URL}/users/${cookie.uid}`
+  );
+  const user = await data.json();
+  if (context.res && (!cookie.uid || !user)) {
+    context.res.writeHead(302, { Location: '/' })
+    context.res.end()
+  }
+  return { user };
 };
 
 export default UserSettingsPage;

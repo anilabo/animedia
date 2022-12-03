@@ -5,22 +5,28 @@ import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
 import { Dispatch, SetStateAction } from "react";
 
-type InitialProps = { currentUser: firebase.User, setIsSignedIn: Dispatch<SetStateAction<boolean>> };
+type InitialProps = {
+  currentUser: firebase.User;
+  setIsSignedIn: Dispatch<SetStateAction<boolean>>;
+};
 
-const NavbarLoggedInUserIcon = ({ currentUser, setIsSignedIn }: InitialProps) => {
-  const router = useRouter()
+const NavbarLoggedInUserIcon = ({
+  currentUser,
+  setIsSignedIn,
+}: InitialProps) => {
+  const router = useRouter();
   const logout = () => {
     signOut(auth)
       .then(async () => {
         setIsSignedIn(false);
-        await destroyCookie(null, 'uid')
-        await router.reload();
+        destroyCookie(null, "uid");
+        location.replace(`/`)
       })
       .catch((error) => {
         alert(error);
       });
   };
-  
+
   return (
     <Dropdown
       arrowIcon={false}
@@ -47,10 +53,8 @@ const NavbarLoggedInUserIcon = ({ currentUser, setIsSignedIn }: InitialProps) =>
       >
         Recent activity
       </Dropdown.Item>
-      <Dropdown.Item
-        onClick={() => router.push(`/users/edit`)}
-      >
-        Edit Profile
+      <Dropdown.Item onClick={() => router.push(`/users/settings`)}>
+        Settings
       </Dropdown.Item>
       <Dropdown.Divider />
       <Dropdown.Item onClick={() => logout()}>Sign out</Dropdown.Item>

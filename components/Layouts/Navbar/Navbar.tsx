@@ -22,7 +22,7 @@ const Navbar = memo(() => {
         .signInWithPopup(provider)
         .then(async (res) => {
           if (res.user) {
-            setCookie(null, 'uid', res.user.uid, {})
+            setCookie(null, 'uid', res.user.uid, { path: '/' })
             const token = await res.user.getIdToken();
             const params = {
               token,

@@ -66,8 +66,8 @@ const NavbarLoggedInUserIcon = ({
           {currentUser.email}
         </span>
       </Dropdown.Header>
-      {DropDownItems.map((item) => (
-        <Dropdown.Item onClick={item.onClick} className="gap-2">
+      {DropDownItems.map((item, index) => (
+        <Dropdown.Item onClick={item.onClick} key={index} className="gap-2">
           {item.icon}
           {item.text}
         </Dropdown.Item>

@@ -1,76 +1,63 @@
-const UserEditForm = () => {
+import { PersonIcon } from "@radix-ui/react-icons";
+import { HiOutlineMail } from "react-icons/hi";
+import { MdOutlineDescription } from "react-icons/md";
+
+type InitialProps = { user: User };
+
+const UserEditForm = ({ user }: InitialProps) => {
+  const formItems = [
+    {
+      text: "Name",
+      icon: <PersonIcon className="w-5 h-5" />,
+      uneditable: false,
+      defaultValue: user.display_name,
+      rows: 1,
+      required: true,
+    },
+    {
+      text: "Email",
+      icon: <HiOutlineMail className="w-5 h-5" />,
+      uneditable: true,
+      defaultValue: user.email,
+      rows: 1,
+      required: true,
+    },
+    {
+      text: "Description",
+      icon: <MdOutlineDescription className="w-5 h-5" />,
+      uneditable: false,
+      defaultValue: user.introduction,
+      rows: 8,
+      required: false,
+    },
+  ];
+
   return (
     <div className="p-6 rounded-md border shadow dark:shadow-gray-800 bg-white dark:bg-slate-900">
       <h5 className="text-lg font-semibold mb-4">Personal Detail :</h5>
-      <form>
-        <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
-          <div>
-            <label className="form-label font-medium">
-              First Name : <span className="text-red-600">*</span>
+      <form className="grid grid-cols-1 gap-5 text">
+        {formItems.map((form, index) => (
+          <div key={index}>
+            <label className="form-label">
+              {form.text} :
+              {form.required && <span className="text-red-600">*</span>}
             </label>
             <div className="form-icon relative mt-2">
-              <i
-                data-feather="user"
-                className="w-4 h-4 absolute top-3 left-4"
-              ></i>
-              {/* <input type="text" className="form-input pl-12" placeholder="First Name:" id="firstname" name="name" required=""> */}
-            </div>
-          </div>
-          <div>
-            <label className="form-label font-medium">
-              Last Name : <span className="text-red-600">*</span>
-            </label>
-            <div className="form-icon relative mt-2">
-              <i
-                data-feather="user-check"
-                className="w-4 h-4 absolute top-3 left-4"
-              ></i>
-              {/* <input type="text" className="form-input pl-12" placeholder="Last Name:" id="lastname" name="name" required=""> */}
-            </div>
-          </div>
-          <div>
-            <label className="form-label font-medium">
-              Your Email : <span className="text-red-600">*</span>
-            </label>
-            <div className="form-icon relative mt-2">
-              <i
-                data-feather="mail"
-                className="w-4 h-4 absolute top-3 left-4"
-              ></i>
-              {/* <input type="email" className="form-input pl-12" placeholder="Email" name="email" required=""> */}
-            </div>
-          </div>
-          <div>
-            <label className="form-label font-medium">Occupation : </label>
-            <div className="form-icon relative mt-2">
-              <i
-                data-feather="bookmark"
-                className="w-4 h-4 absolute top-3 left-4"
-              ></i>
-              {/* <input name="name" id="occupation" type="text" className="form-input pl-12" placeholder="Occupation :"> */}
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1">
-          <div className="mt-5">
-            <label className="form-label font-medium">Description : </label>
-            <div className="form-icon relative mt-2">
-              <i
-                data-feather="message-circle"
-                className="w-4 h-4 absolute top-3 left-4"
-              ></i>
+              <div className="absolute top-3 left-4">{form.icon}</div>
               <textarea
-                name="comments"
-                id="comments"
-                className="form-input pl-11 h-28"
-                placeholder="Message :"
+                className={`rounded border-gray-300 focus:ring-0 focus:border-green-400 pl-12 w-full ${
+                  form.uneditable && "bg-gray-100 cursor-not-allowed"
+                }`}
+                placeholder={form.text}
+                id={form.text}
+                defaultValue={form.defaultValue}
+                disabled={form.uneditable}
+                rows={form.rows}
+                required={form.required}
               ></textarea>
             </div>
           </div>
-        </div>
-
-        {/* <input type="submit" id="submit" name="send" className="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-5" value="Save Changes"> */}
+        ))}
       </form>
     </div>
   );

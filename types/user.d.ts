@@ -4,6 +4,7 @@ type User = {
   display_name: string
   email: string
   photo_url: string
+  introduction: string
   created_at: string
   updated_at: string
   opinion?: string

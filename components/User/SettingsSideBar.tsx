@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { IoMdSettings } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
+import { RiDoorOpenLine } from "react-icons/ri";
 
 type InitialProps = { user: User };
 
@@ -18,6 +19,11 @@ const UserSettingsSideBar = ({ user }: InitialProps) => {
       link: "/users/settings",
       text: "Settings",
       icon: <IoMdSettings className="w-6 h-6 mt-auto" />,
+    },
+    {
+      link: "/users/withdrawal",
+      text: "Withdrawal",
+      icon: <RiDoorOpenLine className="w-5 h-5 mt-auto" />,
     },
   ];
   return (

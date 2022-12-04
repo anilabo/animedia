@@ -1,14 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { IoMdSettings } from "react-icons/io";
+import { MdAccountCircle } from "react-icons/md";
 
 type InitialProps = { user: User };
 
 const UserSettingsSideBar = ({ user }: InitialProps) => {
   const router = useRouter();
   const Items = [
-    { link: `/users/${user.uid}`, text: "Profile" },
-    { link: "/users/settings", text: "Settings" },
+    {
+      link: `/users/${user.uid}`,
+      text: "Profile",
+      icon: <MdAccountCircle className="w-6 h-6 mt-auto" />,
+    },
+    {
+      link: "/users/settings",
+      text: "Settings",
+      icon: <IoMdSettings className="w-6 h-6 mt-auto" />,
+    },
   ];
   return (
     <div className="lg:w-1/4 md:w-1/3 md:px-3">
@@ -42,7 +52,9 @@ const UserSettingsSideBar = ({ user }: InitialProps) => {
                         : "text-slate-400"
                     }`}
                   >
-                    <h6 className={`mb-0 font-semibold`}>{item.text}</h6>
+                    <h6 className="mb-0 font-semibold flex my-auto gap-2">
+                      {item.icon} {item.text}
+                    </h6>
                   </a>
                 </Link>
               </li>

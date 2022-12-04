@@ -1,6 +1,5 @@
 import axios from "axios";
 import { firebase } from "lib/Firebase";
-import { useRouter } from "next/router";
 
 type queryType = { user: { display_name: string; introduction: string } };
 

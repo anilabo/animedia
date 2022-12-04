@@ -6,7 +6,7 @@ interface InitialProps {
 
 const UserSubscribedAt = ({ user }: InitialProps) => {
   return (
-    <div className="text-gray-600 text-sm grid md:grid-cols-3 border md:border-none rounded">
+    <div className="text-gray-600 text-sm grid md:grid-cols-3 border md:border-none rounded shadow">
       <div className="bg-gray-100 md:border-y md:border-l md:rounded-l w-full px-4 py-2 mx-auto">
         Subscribed at
       </div>

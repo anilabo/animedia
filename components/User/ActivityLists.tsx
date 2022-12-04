@@ -7,7 +7,7 @@ type InitialProps = { headline: string; lists: Activity[] };
 
 const UserActivityLists = ({ headline, lists }: InitialProps) => {
   return (
-    <div className="rounded border">
+    <div className="rounded border shadow">
       <div className="px-4 py-2 border-b font-semibold text-gray-600">
         {headline}
       </div>

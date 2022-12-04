@@ -5,6 +5,7 @@ import { useCurrentUser } from "hooks/useCurrentUser";
 import { FormEvent, useState } from "react";
 import { HiOutlineMail } from "react-icons/hi";
 import { MdOutlineDescription } from "react-icons/md";
+import { toast } from "react-toastify";
 import { updateUser } from "services/user/update";
 
 type InitialProps = { user: User };
@@ -38,21 +39,22 @@ const UserEditForm = ({ user }: InitialProps) => {
       onChange: (e: any) => setIntroduction(e.target.value),
       rows: 8,
       required: false,
-      maxLength: 200
+      maxLength: 200,
     },
   ];
 
   const currentUser = useCurrentUser();
   const [displayName, setDisplayName] = useState(user.display_name);
   const [introduction, setIntroduction] = useState(user.introduction);
-  const [isUpdating, setIsUpdating] = useState(false);
   const query = { user: { display_name: displayName, introduction } };
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsUpdating(true);
     currentUser &&
-      updateUser(currentUser, query).catch((error) => alert(error));
-    setIsUpdating(false);
+      updateUser(currentUser, query)
+        .then(() => {
+          toast.success("updated!");
+        })
+        .catch((error) => alert(error));
   };
 
   return (
@@ -92,7 +94,7 @@ const UserEditForm = ({ user }: InitialProps) => {
           type="submit"
           className="w-fit px-4 py-1 bg-green-500 text-white rounded hover:bg-green-600"
         >
-          {isUpdating ? <SpinnerForButton /> : "update"}
+          update
         </button>
       </form>
     </div>

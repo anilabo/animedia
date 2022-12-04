@@ -2,18 +2,21 @@ import { useCurrentUser } from "hooks/useCurrentUser";
 import { auth } from "lib/Firebase";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
+import { toast } from "react-toastify";
 import { destroyUser } from "services/user/destroy";
 
 const UserWithdrawalForm = () => {
   const currentUser = useCurrentUser();
-  const router = useRouter()
+  const router = useRouter();
   const handleClick = () => {
-    currentUser && destroyUser(currentUser).then(() => {
-      auth.signOut()
-      currentUser.delete();
-      destroyCookie(null, "uid")
-      router.reload()
-    });
+    currentUser &&
+      destroyUser(currentUser).then(() => {
+        auth.signOut()
+        currentUser.delete();
+        destroyCookie(null, "uid")
+        toast.success("Success to delete. Good bye!");
+        router.push("/");
+      });
   };
 
   return (

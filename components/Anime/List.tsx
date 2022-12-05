@@ -12,7 +12,7 @@ const AnimeList = ({ animes, progress, user, limit }: InitialProps) => {
   return (
     <>
       {animes[0] && (
-        <div className="rounded border text-gray-600">
+        <div className="rounded border text-gray-600 shadow">
           <div className="px-4 py-2 border-b flex gap-2">
             <p className="font-semibold">{progress}</p>
             <div className="bg-green-500 text-white rounded-full w-fit h-6 flex">

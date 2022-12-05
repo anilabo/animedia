@@ -19,7 +19,7 @@ const UserFollowingCount = ({ user }: InitialProps) => {
   }, [user]);
 
   return (
-    <div className="rounded border grid grid-cols-2 text-sm divide-x">
+    <div className="rounded border grid grid-cols-2 text-sm divide-x shadow">
       <Link href={`/users/${user.uid}/followings`}>
         <a className="w-full py-2 m-auto text-center hover:bg-green-100">
           <b className="font-semibold text-green-500 text-md">

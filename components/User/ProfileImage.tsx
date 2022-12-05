@@ -42,7 +42,7 @@ const UserProfileImage = ({ user }: InitialProps) => {
   }, [currentUser, user]);
 
   return (
-    <div className="rounded border p-4 flex flex-col gap-4 h-fit">
+    <div className="rounded border p-4 flex flex-col gap-4 h-fit shadow">
       <p className="mx-auto font-semibold text-xl">{user.display_name}</p>
       <div className="h-40 w-40 mx-auto">
         <Image

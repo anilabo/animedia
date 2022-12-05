@@ -3,6 +3,7 @@ import UserSubscribedAt from "./SubscribedAt";
 import UserProfileImage from "./ProfileImage";
 import UserFollowingCount from "./FollowingCount";
 import UserWatchedComments from "./WatchedComments";
+import UserIntroduction from "./Introduction";
 
 type InitialProps = { user: User };
 
@@ -14,6 +15,7 @@ const UserComponent = ({ user }: InitialProps) => {
           <UserProfileImage user={user} />
           <UserFollowingCount user={user} />
           <UserSubscribedAt user={user} />
+          <UserIntroduction user={user} />
         </div>
         <div className="md:col-span-2 flex flex-col gap-4">
           <UserWatchedComments user={user} limit={6} />

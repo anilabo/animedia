@@ -7,6 +7,8 @@ import { useCurrentUser } from "hooks/useCurrentUser";
 import { useEffect, useState, memo } from "react";
 import NavbarLoggedInUserIcon from "./LoggedInUserIcon";
 import NavbarNotifications from "./Notifications";
+import { signOut } from "firebase/auth";
+import { setCookie } from 'nookies'
 
 const Navbar = memo(() => {
   const router = useRouter();
@@ -20,6 +22,7 @@ const Navbar = memo(() => {
         .signInWithPopup(provider)
         .then(async (res) => {
           if (res.user) {
+            setCookie(null, 'uid', res.user.uid, { path: '/' })
             const token = await res.user.getIdToken();
             const params = {
               token,
@@ -28,13 +31,19 @@ const Navbar = memo(() => {
             axios
               .post(`${process.env.NEXT_PUBLIC_ANILABO_URL}/users`, params)
               .then(() => {
-                router.push("/");
+                router.reload()
+              })
+              .catch((error) => {
+                alert(error)
+                signOut(auth)
+                setIsSignedIn(false)
               });
           }
         })
-        .catch(alert);
     } catch (error) {
       alert(error);
+      signOut(auth)
+      setIsSignedIn(false)
     }
   };
 

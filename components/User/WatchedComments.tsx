@@ -14,7 +14,7 @@ const UserWatchedComments = ({ user, limit }: InitialProps) => {
 
   return (
     <>
-      <div className="rounded border flex flex-col">
+      <div className="rounded border flex flex-col shadow">
         <div className="px-4 py-2 border-b">
           <p className="font-semibold">Comments & Reviews</p>
         </div>
